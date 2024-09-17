@@ -6,149 +6,146 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(NavigationController());
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child:  Container(
-          width: 60,
-          height: 60,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [Color.fromARGB(255, 255, 100, 34), const Color.fromARGB(255, 245, 74, 0)],
-            ),
-          ),
-          child: Icon(
-            Icons.add,
-            color: Colors.white, // Set the color of the icon
-          ),
-        ),
-        backgroundColor: Colors.transparent, // Make the background transparent
+      appBar: AppBar(
+        title: const Text('Penjualan Baju'),
+        backgroundColor: const Color.fromARGB(255, 245, 74, 0),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: Obx(
-        () => BottomAppBar(
-          shape: CircularNotchedRectangle(),
-          notchMargin: 10,
-          child: Container(
-            height: 60,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Row(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Card(
+              elevation: 4,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    MaterialButton(
-                      minWidth: 40,
-                      onPressed: () {
-                        controller.selectedIndex.value = 0;
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.home,
-                            color: controller.selectedIndex.value == 0 ? Color.fromARGB(255, 245, 74, 0) : Colors.grey,
-                          ),
-                          Text(
-                            'Home',
-                            style: TextStyle(
-                              color: controller.selectedIndex.value == 0 ? Color.fromARGB(255, 245, 74, 0) : Colors.grey,
-                            ),
-                          ),
-                        ],
-                      ),
+                    const Text(
+                      'Penjualan Baju (Mingguan)',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    MaterialButton(
-                      minWidth: 40,
-                      onPressed: () {
-                        controller.selectedIndex.value = 1;
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.list_alt,
-                            color: controller.selectedIndex.value == 1 ? Color.fromARGB(255, 245, 74, 0) : Colors.grey,
+                    const SizedBox(height: 10),
+                    Row(
+                      children: const [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Omset'),
+                              Text(
+                                'Rp 3.5 JT',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
                           ),
-                          Text(
-                            'Order',
-                            style: TextStyle(
-                              color: controller.selectedIndex.value == 1 ? Color.fromARGB(255, 245, 74, 0) : Colors.grey,
-                            ),
+                        ),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Profit'),
+                              Text(
+                                'Rp 2.4 JT',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    // Mock chart
+                    Container(
+                      height: 100,
+                      color: Colors.grey.shade300,
+                      child: const Center(child: Text('Chart')),
                     ),
                   ],
                 ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    MaterialButton(
-                      minWidth: 40,
-                      onPressed: () {
-                        controller.selectedIndex.value = 2;
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.shopping_bag,
-                            color: controller.selectedIndex.value == 2 ? Color.fromARGB(255, 245, 74, 0) : Colors.grey,
-                          ),
-                          Text(
-                            'Buying',
-                            style: TextStyle(
-                              color: controller.selectedIndex.value == 2 ? Color.fromARGB(255, 245, 74, 0) : Colors.grey,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    MaterialButton(
-                      minWidth: 40,
-                      onPressed: () {
-                        controller.selectedIndex.value = 3;
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          
-                          Icon(
-                            Icons.account_circle_outlined,
-                            color: controller.selectedIndex.value == 3 ? const Color.fromARGB(255, 245, 74, 0) : Colors.grey,
-                          ),
-                          Text(
-                            'Profile',
-                            style: TextStyle(
-                              color: controller.selectedIndex.value == 3 ? const Color.fromARGB(255, 245, 74, 0) : Colors.grey,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildActionButton('List Product', Icons.list),
+                _buildActionButton('Min. Stock', Icons.inventory),
+                _buildActionButton('Stock Adj.', Icons.edit),
+                _buildActionButton('Pelanggan', Icons.people),
               ],
             ),
-          ),
+            const SizedBox(height: 20),
+            // Transactions Card
+            Card(
+              elevation: 4,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Transaction',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: const [
+                              Text('Customer'),
+                              Text('Member'),
+                              // Text(
+                              //   'Rp 1.1M+',
+                              //   style: TextStyle(
+                              //     fontSize: 24,
+                              //     fontWeight: FontWeight.bold,
+                              //     color: Colors.black,
+                              //   ),
+                              // ),
+                            ],
+                          ),
+                        ),
+                        const Icon(Icons.arrow_forward_ios, color: Colors.grey),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
-      body: Obx(() => controller.screens[controller.selectedIndex.value]),
     );
   }
-}
 
-class NavigationController extends GetxController {
-  final Rx<int> selectedIndex = 0.obs;
-  final screens = [
-    Container(color: Colors.green),
-    Container(color: Colors.blue),
-    Container(color: Colors.red),
-    Container(color: Colors.yellow),
-  ];
+  Widget _buildActionButton(String label, IconData icon) {
+    return Column(
+      children: [
+        IconButton(
+          icon: Icon(icon, color: const Color.fromARGB(255, 245, 74, 0)),
+          onPressed: () {},
+        ),
+        Text(label),
+      ],
+    );
+  }
 }
