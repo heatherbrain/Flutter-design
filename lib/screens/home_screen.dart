@@ -1,5 +1,7 @@
+import 'package:fl_chart/fl_chart.dart'; // Tambahkan import ini
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -26,70 +28,214 @@ class HomeScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Penjualan Baju (Mingguan)',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Penjualan Baju',
+                          style: GoogleFonts.notoSans(
+                              fontSize: 18, fontWeight: FontWeight.w700),
+                        ),
+                        DropdownButton<String>(
+                          value: 'Mingguan',
+                          style: GoogleFonts.notoSans(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black),
+                          items: <String>['Mingguan', 'Bulanan']
+                              .map((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          onChanged: (_) {},
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 10),
                     Row(
-                      children: const [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Omset'),
-                              Text(
-                                'Rp 3.5 JT',
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Column(
+                          children: [
+                            Image.asset(
+                              'assets/images/T-Shirt.png',
+                              height: 64,
+                              width: 64,
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Omset',
+                                      style: GoogleFonts.notoSans(
+                                          fontSize: 12, color: Colors.grey),
+                                    ),
+                                    Text(
+                                      'Rp3.5JT',
+                                      style: GoogleFonts.notoSans(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ],
-                          ),
+                                const SizedBox(width: 20),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Profit',
+                                      style: GoogleFonts.notoSans(
+                                          fontSize: 12, color: Colors.grey),
+                                    ),
+                                    Text(
+                                      'Rp2.4JT',
+                                      style: GoogleFonts.notoSans(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Profit'),
-                              Text(
-                                'Rp 2.4 JT',
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
+                        const Spacer(),
+                        // Container untuk Bar Chart
+                        Container(
+                          width: 100,
+                          height: 74,
+                          child: BarChart(
+                            BarChartData(
+                              alignment: BarChartAlignment.spaceAround,
+                              maxY: 20,
+                              barTouchData: BarTouchData(enabled: false),
+                              titlesData: FlTitlesData(show: false),
+                              borderData: FlBorderData(show: false),
+                              barGroups: [
+                                BarChartGroupData(
+                                  x: 0,
+                                  barRods: [
+                                    BarChartRodData(
+                                      toY: 8,
+                                      color: Colors.orange,
+                                      width: 10,
+                                      borderRadius: BorderRadius.circular(4),
+                                      backDrawRodData:
+                                          BackgroundBarChartRodData(
+                                        show: true,
+                                        toY: 20,
+                                        color: Colors.grey[300],
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ],
+                                BarChartGroupData(
+                                  x: 1,
+                                  barRods: [
+                                    BarChartRodData(
+                                      toY: 10,
+                                      color: Colors.orange,
+                                      width: 10,
+                                      borderRadius: BorderRadius.circular(4),
+                                      backDrawRodData:
+                                          BackgroundBarChartRodData(
+                                        show: true,
+                                        toY: 20,
+                                        color: Colors.grey[300],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                BarChartGroupData(
+                                  x: 2,
+                                  barRods: [
+                                    BarChartRodData(
+                                      toY: 14,
+                                      color: Colors.orange,
+                                      width: 10,
+                                      borderRadius: BorderRadius.circular(4),
+                                      backDrawRodData:
+                                          BackgroundBarChartRodData(
+                                        show: true,
+                                        toY: 20,
+                                        color: Colors.grey[300],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                BarChartGroupData(
+                                  x: 3,
+                                  barRods: [
+                                    BarChartRodData(
+                                      toY: 6,
+                                      color: Colors.orange,
+                                      width: 10,
+                                      borderRadius: BorderRadius.circular(4),
+                                      backDrawRodData:
+                                          BackgroundBarChartRodData(
+                                        show: true,
+                                        toY: 92.62,
+                                        color: Colors.grey[300],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                BarChartGroupData(
+                                  x: 4,
+                                  barRods: [
+                                    BarChartRodData(
+                                      toY: 8,
+                                      color: Colors.orange,
+                                      width: 10,
+                                       borderRadius: BorderRadius.circular(4), // Sudut kotak
+                                      backDrawRodData:
+                                          BackgroundBarChartRodData(
+                                        show: true,
+                                        toY: 20,
+                                        color: Colors.grey[300],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ],
                     ),
                     const SizedBox(height: 10),
-                    // Mock chart
-                    Container(
-                      height: 100,
-                      color: Colors.grey.shade300,
-                      child: const Center(child: Text('Chart')),
-                    ),
                   ],
                 ),
               ),
             ),
             const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _buildActionButton('List Product', Icons.list),
-                _buildActionButton('Min. Stock', Icons.inventory),
-                _buildActionButton('Stock Adj.', Icons.edit),
-                _buildActionButton('Pelanggan', Icons.people),
-              ],
+            Card(
+              elevation: 4,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    _buildActionButton('List Product', Icons.list),
+                    _buildActionButton('Min. Stock', Icons.inventory),
+                    _buildActionButton('Stock Adj.', Icons.edit),
+                    _buildActionButton('Pelanggan', Icons.people),
+                  ],
+                ),
+              ),
             ),
             const SizedBox(height: 20),
-            // Transactions Card
             Card(
               elevation: 4,
               shape: RoundedRectangleBorder(
@@ -100,9 +246,10 @@ class HomeScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'Transaction',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style: GoogleFonts.notoSans(
+                          fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 10),
                     Row(
@@ -110,17 +257,9 @@ class HomeScreen extends StatelessWidget {
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Text('Customer'),
-                              Text('Member'),
-                              // Text(
-                              //   'Rp 1.1M+',
-                              //   style: TextStyle(
-                              //     fontSize: 24,
-                              //     fontWeight: FontWeight.bold,
-                              //     color: Colors.black,
-                              //   ),
-                              // ),
+                            children: [
+                              const Text('Customer'),
+                              const Text('Member'),
                             ],
                           ),
                         ),

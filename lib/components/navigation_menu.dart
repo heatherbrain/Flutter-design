@@ -11,7 +11,7 @@ class NavigationMenu extends StatelessWidget {
     return Obx(() => BottomAppBar(
       shape: const CircularNotchedRectangle(),
       notchMargin: 10,
-      child: Container(
+      child: SizedBox(
         height: 60,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

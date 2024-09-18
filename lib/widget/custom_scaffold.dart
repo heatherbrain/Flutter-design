@@ -12,7 +12,7 @@ class CustomScaffold extends StatelessWidget {
       body: Stack(
         children: [
           child,
-          Positioned(
+          const Positioned(
             top: 50,
             left: 20,
             child: Text(''),

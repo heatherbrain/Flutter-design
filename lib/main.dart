@@ -34,6 +34,7 @@ class MainScreen extends StatelessWidget {
         onPressed: () {
           
         },
+        backgroundColor: Colors.transparent,
         child: Container(
           width: 60,
           height: 60,
@@ -50,7 +51,6 @@ class MainScreen extends StatelessWidget {
             color: Colors.white,
           ),
         ),
-        backgroundColor: Colors.transparent,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked, 
     );

@@ -149,7 +149,7 @@ class _SigninScreenState extends State<SigninScreen> {
             ),
             border: InputBorder.none,
             suffixIcon: const Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
+              padding: EdgeInsets.symmetric(horizontal: 12),
               child: Icon(
                 Icons.email_outlined,
                 color: Color(0xFF979AA0),
