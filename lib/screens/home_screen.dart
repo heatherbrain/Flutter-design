@@ -1,10 +1,25 @@
-import 'package:fl_chart/fl_chart.dart'; // Tambahkan import ini
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  List<double> weeklySummary = [
+    4.40,
+    4.40,
+    5.40,
+    4.40,
+    3.40,
+    4.40,
+    2.40,
+  ];
+
+  List<bool> isSelected = [true, false]; // Customer terpilih default
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +33,9 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Card pertama: Penjualan
             Card(
+              color: Colors.white,
               elevation: 4,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
@@ -58,6 +75,7 @@ class HomeScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Image.asset(
                               'assets/images/T-Shirt.png',
@@ -107,107 +125,7 @@ class HomeScreen extends StatelessWidget {
                           ],
                         ),
                         const Spacer(),
-                        // Container untuk Bar Chart
-                        Container(
-                          width: 100,
-                          height: 74,
-                          child: BarChart(
-                            BarChartData(
-                              alignment: BarChartAlignment.spaceAround,
-                              maxY: 20,
-                              barTouchData: BarTouchData(enabled: false),
-                              titlesData: FlTitlesData(show: false),
-                              borderData: FlBorderData(show: false),
-                              barGroups: [
-                                BarChartGroupData(
-                                  x: 0,
-                                  barRods: [
-                                    BarChartRodData(
-                                      toY: 8,
-                                      color: Colors.orange,
-                                      width: 10,
-                                      borderRadius: BorderRadius.circular(4),
-                                      backDrawRodData:
-                                          BackgroundBarChartRodData(
-                                        show: true,
-                                        toY: 20,
-                                        color: Colors.grey[300],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                BarChartGroupData(
-                                  x: 1,
-                                  barRods: [
-                                    BarChartRodData(
-                                      toY: 10,
-                                      color: Colors.orange,
-                                      width: 10,
-                                      borderRadius: BorderRadius.circular(4),
-                                      backDrawRodData:
-                                          BackgroundBarChartRodData(
-                                        show: true,
-                                        toY: 20,
-                                        color: Colors.grey[300],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                BarChartGroupData(
-                                  x: 2,
-                                  barRods: [
-                                    BarChartRodData(
-                                      toY: 14,
-                                      color: Colors.orange,
-                                      width: 10,
-                                      borderRadius: BorderRadius.circular(4),
-                                      backDrawRodData:
-                                          BackgroundBarChartRodData(
-                                        show: true,
-                                        toY: 20,
-                                        color: Colors.grey[300],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                BarChartGroupData(
-                                  x: 3,
-                                  barRods: [
-                                    BarChartRodData(
-                                      toY: 6,
-                                      color: Colors.orange,
-                                      width: 10,
-                                      borderRadius: BorderRadius.circular(4),
-                                      backDrawRodData:
-                                          BackgroundBarChartRodData(
-                                        show: true,
-                                        toY: 92.62,
-                                        color: Colors.grey[300],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                BarChartGroupData(
-                                  x: 4,
-                                  barRods: [
-                                    BarChartRodData(
-                                      toY: 8,
-                                      color: Colors.orange,
-                                      width: 10,
-                                       borderRadius: BorderRadius.circular(4), // Sudut kotak
-                                      backDrawRodData:
-                                          BackgroundBarChartRodData(
-                                        show: true,
-                                        toY: 20,
-                                        color: Colors.grey[300],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                        // Tambahkan grafik atau widget lain di sini
                       ],
                     ),
                     const SizedBox(height: 10),
@@ -216,7 +134,10 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
+
+            // Card kedua: Menu dengan icon
             Card(
+              color: Colors.white,
               elevation: 4,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
@@ -227,20 +148,40 @@ class HomeScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    _buildActionButton('List Product', Icons.list),
-                    _buildActionButton('Min. Stock', Icons.inventory),
-                    _buildActionButton('Stock Adj.', Icons.edit),
-                    _buildActionButton('Pelanggan', Icons.people),
+                    _buildActionButton(
+                      'List Product',
+                      Icons.list_outlined,
+                      const Color(0xFFECEBFF),
+                      const Color(0xFF574EFA),
+                    ),
+                    _buildActionButtonWithBadge(
+                      'Min. Stock',
+                      Icons.inbox_outlined,
+                      const Color(0xFFFEF2F2),
+                      const Color(0xFFDC2626),
+                      9,
+                    ),
+                    _buildActionButton(
+                      'Stock Adj.',
+                      Icons.settings_outlined,
+                      const Color(0xFFF0FDF4),
+                      const Color(0xFF16A34A),
+                    ),
+                    _buildActionButton(
+                      'Pelanggan',
+                      Icons.people_outline,
+                      const Color(0xFFFFFAF2),
+                      const Color(0xFFEEA23E),
+                    ),
                   ],
                 ),
               ),
             ),
+
             const SizedBox(height: 20),
-            Card(
-              elevation: 4,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
+
+            // Card ketiga: Transaction
+            Container(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
@@ -253,19 +194,79 @@ class HomeScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                        // Toggle Button Design
+                        Container(
+                          padding: const EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFEFEFF1),
+                            borderRadius: BorderRadius.circular(14.0),
+                          ),
+                          child: Row(
                             children: [
-                              const Text('Customer'),
-                              const Text('Member'),
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    isSelected[0] = true;
+                                    isSelected[1] = false;
+                                  });
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 8, horizontal: 50),
+                                  decoration: BoxDecoration(
+                                    color: isSelected[0]
+                                        ? Colors.white
+                                        : Colors.transparent,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Text(
+                                    'Customer',
+                                    style: GoogleFonts.notoSans(
+                                      color: isSelected[0]
+                                          ? const Color(0xFFF74904)
+                                          : Colors.grey,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    isSelected[0] = false;
+                                    isSelected[1] = true;
+                                  });
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 8, horizontal: 50),
+                                  decoration: BoxDecoration(
+                                    color: isSelected[1]
+                                        ? Colors.white
+                                        : Colors.transparent,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Text(
+                                    'Member',
+                                    style: GoogleFonts.notoSans(
+                                      color: isSelected[1]
+                                          ? const Color(0xFFF74904)
+                                          : Colors.grey,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ),
-                        const Icon(Icons.arrow_forward_ios, color: Colors.grey),
                       ],
                     ),
+                    const SizedBox(height: 20),
                   ],
                 ),
               ),
@@ -276,15 +277,64 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildActionButton(String label, IconData icon) {
+  // Widget untuk Action Button dengan Badge
+  Widget _buildActionButtonWithBadge(String label, IconData icon,
+      Color backgroundColor, Color iconColor, int badgeCount) {
     return Column(
       children: [
-        IconButton(
-          icon: Icon(icon, color: const Color.fromARGB(255, 245, 74, 0)),
-          onPressed: () {},
+        Stack(
+          clipBehavior: Clip.none,
+          children: [
+            _buildIconButton(icon, backgroundColor, iconColor),
+            Positioned(
+              top: -4,
+              right: -4,
+              child: Container(
+                padding: const EdgeInsets.all(4),
+                decoration: const BoxDecoration(
+                  color: Colors.red,
+                  shape: BoxShape.circle,
+                ),
+                child: Text(
+                  '$badgeCount',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
-        Text(label),
+        const SizedBox(height: 6),
+        Text(label, style: GoogleFonts.notoSans(fontSize: 12)),
       ],
+    );
+  }
+
+  // Widget untuk Action Button tanpa Badge
+  Widget _buildActionButton(
+      String label, IconData icon, Color backgroundColor, Color iconColor) {
+    return Column(
+      children: [
+        _buildIconButton(icon, backgroundColor, iconColor),
+        const SizedBox(height: 6),
+        Text(label, style: GoogleFonts.notoSans(fontSize: 12)),
+      ],
+    );
+  }
+
+  // Widget dasar untuk ikon dengan latar belakang bulat
+  Widget _buildIconButton(
+      IconData icon, Color backgroundColor, Color iconColor) {
+    return Container(
+      height: 50,
+      width: 50,
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Icon(icon, color: iconColor),
     );
   }
 }

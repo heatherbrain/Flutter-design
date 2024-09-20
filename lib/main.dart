@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:from_design/screens/home_screen.dart';
 import 'package:from_design/components/navigation_menu.dart';
 
 void main() {
