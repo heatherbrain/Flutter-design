@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -20,12 +20,15 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   List<bool> isSelected = [true, false]; // Customer terpilih default
+  String dropdownValue = 'Mingguan'; // State untuk Dropdown
+  String transactionDropdownValue =
+      'This week'; // State untuk Transaction Dropdown
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       appBar: AppBar(
-        title: const Text('Penjualan Baju'),
         backgroundColor: const Color.fromARGB(255, 245, 74, 0),
       ),
       body: Padding(
@@ -54,11 +57,11 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontSize: 18, fontWeight: FontWeight.w700),
                         ),
                         DropdownButton<String>(
-                          value: 'Mingguan',
+                          value: dropdownValue,
                           style: GoogleFonts.notoSans(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
-                              color: Colors.black),
+                              color: Colors.grey),
                           items: <String>['Mingguan', 'Bulanan']
                               .map((String value) {
                             return DropdownMenuItem<String>(
@@ -66,7 +69,11 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Text(value),
                             );
                           }).toList(),
-                          onChanged: (_) {},
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              dropdownValue = newValue!;
+                            });
+                          },
                         ),
                       ],
                     ),
@@ -151,27 +158,27 @@ class _HomeScreenState extends State<HomeScreen> {
                     _buildActionButton(
                       'List Product',
                       Icons.list_outlined,
-                      const Color(0xFFECEBFF),
-                      const Color(0xFF574EFA),
+                      Color(0xFFECEBFF),
+                      Color(0xFF574EFA),
                     ),
                     _buildActionButtonWithBadge(
                       'Min. Stock',
                       Icons.inbox_outlined,
-                      const Color(0xFFFEF2F2),
-                      const Color(0xFFDC2626),
+                      Color(0xFFFEF2F2),
+                      Color(0xFFDC2626),
                       9,
                     ),
                     _buildActionButton(
                       'Stock Adj.',
                       Icons.settings_outlined,
-                      const Color(0xFFF0FDF4),
-                      const Color(0xFF16A34A),
+                      Color(0xFFF0FDF4),
+                      Color(0xFF16A34A),
                     ),
                     _buildActionButton(
                       'Pelanggan',
                       Icons.people_outline,
-                      const Color(0xFFFFFAF2),
-                      const Color(0xFFEEA23E),
+                      Color(0xFFFFFAF2),
+                      Color(0xFFEEA23E),
                     ),
                   ],
                 ),
@@ -187,10 +194,36 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Transaction',
-                      style: GoogleFonts.notoSans(
-                          fontSize: 18, fontWeight: FontWeight.bold),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Transaction',
+                          style: GoogleFonts.notoSans(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Row(
+                          // Bungkus teks dan ikon dalam Row baru
+                          children: [
+                            Text(
+                              'View all',
+                              style: GoogleFonts.notoSans(
+                                fontSize: 12,
+                                color: Colors.grey,
+                              ),
+                            ),
+                            const SizedBox(
+                                width: 4), // Jarak antara teks dan ikon
+                            const Icon(
+                              Icons.arrow_forward,
+                              size: 16,
+                              color: Colors.grey,
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 10),
                     Row(
@@ -200,7 +233,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Container(
                           padding: const EdgeInsets.all(4),
                           decoration: BoxDecoration(
-                            color: const Color(0xFFEFEFF1),
+                            color: Color(0xFFEFEFF1),
                             borderRadius: BorderRadius.circular(14.0),
                           ),
                           child: Row(
@@ -225,7 +258,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     'Customer',
                                     style: GoogleFonts.notoSans(
                                       color: isSelected[0]
-                                          ? const Color(0xFFF74904)
+                                          ? Color(0xFFF74904)
                                           : Colors.grey,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w500,
@@ -253,7 +286,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     'Member',
                                     style: GoogleFonts.notoSans(
                                       color: isSelected[1]
-                                          ? const Color(0xFFF74904)
+                                          ? Color(0xFFF74904)
                                           : Colors.grey,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w500,
@@ -271,6 +304,32 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
+
+            // Dropdown di akhir halaman
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                DropdownButton<String>(
+                  value: transactionDropdownValue,
+                  style: GoogleFonts.notoSans(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black),
+                  items: <String>['This week', 'This month', 'This year']
+                      .map((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      transactionDropdownValue = newValue!;
+                    });
+                  },
+                ),
+              ],
+            )
           ],
         ),
       ),

@@ -5,7 +5,7 @@ import 'package:from_design/widget/bar_graph/bar_data.dart';
 class BarGraph extends StatelessWidget {
   final List<double> weeklySummary;
 
-  const BarGraph({super.key, required this.weeklySummary});
+  const BarGraph({Key? key, required this.weeklySummary}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class BarGraph extends StatelessWidget {
       BarChartData(
         maxY: 100,
         minY: 0,
-        titlesData: const FlTitlesData(
+        titlesData: FlTitlesData(
           topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
           rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
           bottomTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
