@@ -49,7 +49,7 @@ class _ListOrderScreenState extends State<ListOrderScreen> with SingleTickerProv
           controller: _tabController,
           labelColor: Colors.black,
           unselectedLabelColor: Colors.grey,
-          indicatorColor: Colors.orange, // Garis bawah berwarna orange
+          indicatorColor: Color(0xFFF74904), // Garis bawah berwarna orange
           tabs: const [
             Tab(text: 'Semua'),
             Tab(text: 'Tahan'),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:from_design/screens/home_screen.dart';
+import 'package:from_design/screens/order_screen.dart';
 import 'package:get/get.dart';
 
 class NavigationMenu extends StatelessWidget {
@@ -131,7 +132,7 @@ class NavigationController extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
   final screens = [
     const HomeScreen(),
-    Container(color: Colors.blue),
+    ListOrderScreen(),
     Container(color: Colors.red),
     Container(color: Colors.yellow),
   ];
