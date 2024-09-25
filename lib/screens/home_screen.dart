@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:from_design/widget/card_slide/marketplace.dart';
+import 'package:from_design/widget/home/marketplace.dart';
+import 'package:from_design/widget/home/notification.dart';
+import 'package:from_design/widget/home/product_slide.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -44,7 +46,9 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 20),
               _buildTransactionFilter(),
               const SizedBox(height: 20),
-               Marketplace(), // Pastikan Marketplace widget sudah diimpor
+               Marketplace(), 
+               NotificationList(),
+               PopularProducts(),
             ],
           ),
         ),

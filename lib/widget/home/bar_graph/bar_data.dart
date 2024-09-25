@@ -1,4 +1,4 @@
-import 'package:from_design/widget/bar_graph/individual_bar.dart';
+import 'package:from_design/widget/home/bar_graph/individual_bar.dart';
 
 class BarData{
   final double sunAmount;
