@@ -38,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildSalesCard(),
+              _buildSalesCardSlider(),
               const SizedBox(height: 20),
               _buildActionButtons(),
               const SizedBox(height: 20),
@@ -46,9 +46,9 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 20),
               _buildTransactionFilter(),
               const SizedBox(height: 20),
-               Marketplace(), 
-               NotificationList(),
-               PopularProducts(),
+              Marketplace(),
+              NotificationList(),
+              PopularProducts(),
             ],
           ),
         ),
@@ -56,7 +56,150 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildSalesCard() {
+  // Menggunakan PageView untuk membuat card bisa digeser
+  Widget _buildSalesCardSlider() {
+    return SizedBox(
+      height: 200, // Sesuaikan tinggi card sesuai kebutuhan
+      child: PageView(
+        children: [
+          _buildSalesCard1(),
+          _buildSalesCard2(), // Card kedua, Anda bisa mengganti konten ini
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSalesCard1() {
+    return Card(
+      color: Colors.white,
+      elevation: 4,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Penjualan Baju',
+                  style: GoogleFonts.notoSans(
+                      fontSize: 18, fontWeight: FontWeight.w700),
+                ),
+                DropdownButton<String>(
+                  value: dropdownValue,
+                  style: GoogleFonts.notoSans(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.grey),
+                  items: <String>['Mingguan', 'Bulanan'].map((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      dropdownValue = newValue!;
+                    });
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Image.asset(
+                      'assets/images/T-Shirt.png',
+                      height: 64,
+                      width: 64,
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Omset',
+                              style: GoogleFonts.notoSans(
+                                  fontSize: 12, color: Colors.grey),
+                            ),
+                            Row(
+
+                            children: [
+                              Text(
+                                'Rp',
+                                style: GoogleFonts.notoSans(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                              ), 
+                              ),
+                            Text(
+                              '800RB',
+                              style: GoogleFonts.notoSans(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            ] 
+                              
+                            )
+                          ],
+                        ),
+                        const SizedBox(width: 20),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Profit',
+                              style: GoogleFonts.notoSans(
+                                  fontSize: 12, color: Colors.grey),
+                            ),
+                            Row(
+
+                            children: [
+                              Text(
+                                'Rp',
+                                style: GoogleFonts.notoSans(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                              ), 
+                              ),
+                            Text(
+                              '800RB',
+                              style: GoogleFonts.notoSans(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            ] 
+                              
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                const Spacer(),
+              ],
+            ),
+            const SizedBox(height: 10),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSalesCard2() {
     return Card(
       color: Colors.white,
       elevation: 4,
@@ -257,62 +400,38 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           child: Row(
             children: [
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    isSelected[0] = true;
-                    isSelected[1] = false;
-                  });
-                },
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 8, horizontal: 50),
-                  decoration: BoxDecoration(
-                    color: isSelected[0] ? Colors.white : Colors.transparent,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Text(
-                    'Customer',
-                    style: GoogleFonts.notoSans(
-                      color: isSelected[0]
-                          ? Color(0xFFF74904)
-                          : Colors.grey,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    isSelected[0] = false;
-                    isSelected[1] = true;
-                  });
-                },
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 8, horizontal: 50),
-                  decoration: BoxDecoration(
-                    color: isSelected[1] ? Colors.white : Colors.transparent,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Text(
-                    'Member',
-                    style: GoogleFonts.notoSans(
-                      color: isSelected[1]
-                          ? Color(0xFFF74904)
-                          : Colors.grey,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-              ),
+              _buildSwitchButton('Customer', 0),
+              _buildSwitchButton('Member', 1),
             ],
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildSwitchButton(String label, int index) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          isSelected[index] = true;
+          isSelected[1 - index] = false;
+        });
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 50),
+        decoration: BoxDecoration(
+          color: isSelected[index] ? Colors.white : Colors.transparent,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Text(
+          label,
+          style: GoogleFonts.notoSans(
+            color: isSelected[index] ? Color(0xFFF74904) : Colors.grey,
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
     );
   }
 
@@ -340,6 +459,8 @@ class _HomeScreenState extends State<HomeScreen> {
       ],
     );
   }
+}
+
 
   Widget _buildActionButtonWithBadge(
       String label, IconData icon, Color backgroundColor, Color iconColor, int badgeCount) {
@@ -398,4 +519,4 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Icon(icon, color: iconColor),
     );
   }
-}
+
