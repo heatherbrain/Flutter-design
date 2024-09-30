@@ -13,7 +13,7 @@ class _ListOrderScreenState extends State<ListOrderScreen>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 5, vsync: this); 
+    _tabController = TabController(length: 5, vsync: this);
   }
 
   @override
@@ -37,11 +37,13 @@ class _ListOrderScreenState extends State<ListOrderScreen>
           IconButton(
             icon: const Icon(Icons.search),
             onPressed: () {
+              // Aksi saat tombol pencarian ditekan
             },
           ),
           IconButton(
             icon: const Icon(Icons.filter_list),
             onPressed: () {
+              // Aksi saat tombol filter ditekan
             },
           ),
         ],
@@ -79,7 +81,7 @@ class _ListOrderScreenState extends State<ListOrderScreen>
 class OrderList extends StatelessWidget {
   final List<Order> orders = [
     Order(
-      assetPath:'assets/images/budiorder.png',
+      assetPath: 'assets/images/budiorder.png',
       name: 'Budi Syahputra',
       orderId: '#00101',
       date: '21/7/2024',
@@ -89,7 +91,7 @@ class OrderList extends StatelessWidget {
       statusLabel2: 'Tahan',
     ),
     Order(
-      assetPath:'assets/images/tokpedorder.png',
+      assetPath: 'assets/images/tokpedorder.png',
       name: 'Tokopedia',
       orderId: '#00101',
       date: '21/7/2024',
@@ -99,14 +101,14 @@ class OrderList extends StatelessWidget {
       statusLabel2: 'Tahan',
     ),
     Order(
-      assetPath:'assets/images/shoporder.png',
+      assetPath: 'assets/images/shoporder.png',
       name: 'Shopee',
       orderId: '#00100',
       date: '2d ago',
       total: 'Rp 82.340',
       productsCount: '5 Produk',
       statusLabel1: 'Shopee',
-      statusLabel2: 'Tahan',
+      statusLabel2: 'Lunas',
     ),
   ];
 
@@ -116,93 +118,126 @@ class OrderList extends StatelessWidget {
       padding: EdgeInsets.all(10.0),
       itemCount: orders.length,
       itemBuilder: (context, index) {
-        return OrderCard(order: orders[index]);
+        return OrderContainer(order: orders[index]);
       },
     );
   }
 }
 
-class OrderCard extends StatelessWidget {
+class OrderContainer extends StatelessWidget {
   final Order order;
 
-  OrderCard({required this.order});
+  OrderContainer({required this.order});
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Colors.white,
+    return Container(
       margin: EdgeInsets.symmetric(vertical: 8.0),
-      shape: RoundedRectangleBorder(
+      padding: EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
         borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.grey.shade300, width: 1),
       ),
-      child: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                CircleAvatar(
-                  radius: 20,
-                  backgroundImage: AssetImage(order.assetPath),
-                ),
-                SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        order.name,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        '${order.orderId} • ${order.date}',
-                        style: TextStyle(color: Colors.grey[600], fontSize: 12),
-                      ),
-                    ],
-                  ),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+      child: Column(
+        children: [
+          Row(
+            children: [
+              CircleAvatar(
+                backgroundImage: AssetImage(order.assetPath),
+              ),
+              SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      order.total,
+                      order.name,
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 4),
-                    Icon(Icons.more_vert, color: Colors.grey),
+                    Text(
+                      '${order.orderId} • ${order.date}',
+                      style: TextStyle(color: Colors.grey[600], fontSize: 12),
+                    ),
                   ],
                 ),
-              ],
-            ),
-            SizedBox(height: 12),
-            Row(
-              children: [
-                Text(
-                  order.productsCount,
-                  style: TextStyle(color: Colors.grey[600], fontSize: 12),
-                ),
-                Spacer(),
-                _buildStatusChip(order.statusLabel1),
-                SizedBox(width: 8),
-                _buildStatusChip(order.statusLabel2, isSecondary: true),
-              ],
-            ),
-          ],
-        ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    order.total,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 4),
+                  Icon(Icons.more_vert, color: Colors.grey),
+                ],
+              ),
+            ],
+          ),
+          SizedBox(height: 12),
+          Row(
+  children: [
+    Icon(
+      Icons.circle, // Atau bisa menggunakan Icons.fiber_manual_record
+      size: 8, // Sesuaikan ukuran bulatan
+      color: Colors.white, // Warna bulatan
+    ),
+    SizedBox(width: 4), // Jarak antara ikon dan teks
+    Text(
+      'Tahan',
+      style: TextStyle(color: Colors.white), // Ubah warna teks sesuai kebutuhan
+    ),
+  ],
+)
+
+        ],
       ),
     );
   }
 
   Widget _buildStatusChip(String label, {bool isSecondary = false}) {
-    Color bgColor = isSecondary ? Colors.blue.withOpacity(0.1) : Colors.orange.withOpacity(0.1);
-    Color textColor = isSecondary ? Colors.blue : Colors.orange;
-    
+    // Tentukan warna berdasarkan label
+    Color bgColor;
+    switch (label) {
+      case 'Lunas':
+        bgColor = Color(0xFF0D9488); 
+        break;
+      case 'Tahan':
+        bgColor = Color(0xFF1E40AF); 
+        break;
+      case 'Tokopedia':
+        bgColor = Color(0xFF00AA5B); 
+        break;
+      case 'Gold Member':
+        bgColor = const Color(0xFFE69D48); 
+      case 'Shopee':
+        bgColor = const Color(0xFF1E40AF); 
+        break;
+        case 'Tiktok':
+        bgColor = const Color(0xFF181818); 
+        break;
+        case 'Batal':
+        bgColor = const Color(0xFF991B1B); 
+        break;
+        case 'Member':
+        bgColor = const Color(0xFFAD6953); 
+        break;
+        case 'Draft':
+        bgColor = const Color(0xFF979AA0); 
+        break;
+      default:
+        bgColor = isSecondary ? Color(0xFF1E40AF) : Colors.orange; // Warna default
+    }
+
+    Color textColor = Colors.white;
+
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
       decoration: BoxDecoration(
@@ -220,21 +255,3 @@ class OrderCard extends StatelessWidget {
     );
   }
 }
-
-  Widget _buildStatusChip(String label, Color color) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-      decoration: BoxDecoration(
-        color: color.withOpacity(0.2),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Text(
-        label,
-        style: TextStyle(
-          color: color,
-          fontSize: 12,
-        ),
-      ),
-    );
-  }
-
