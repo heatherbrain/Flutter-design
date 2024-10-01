@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart'; // Tambahkan import ini
 
 class PopularProducts extends StatelessWidget {
   final List<Map<String, String>> products = [
@@ -39,8 +40,14 @@ class PopularProducts extends StatelessWidget {
               TextButton(
                 onPressed: () {},
                 child: Row(
-                  children: const [
-                    Text('View all', style: TextStyle(color: Colors.grey)),
+                  children: [
+                    Text(
+                      'View all',
+                      style: GoogleFonts.notoSans(
+                        fontSize: 12,
+                        color: Colors.grey,
+                      ),
+                    ),
                     Icon(Icons.arrow_forward_ios, size: 12, color: Colors.grey),
                   ],
                 ),
@@ -49,19 +56,19 @@ class PopularProducts extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 16),
-        // Use ListView instead of SizedBox for vertical scrolling
+        // Menggunakan ListView untuk scrolling vertikal
         SizedBox(
-          height: 300, // Set the height to allow vertical scrolling
+          height: 300, // Atur tinggi untuk mengizinkan scrolling vertikal
           child: ListView.builder(
             itemCount: products.length,
             itemBuilder: (context, index) {
               final product = products[index];
               return Container(
-                margin: const EdgeInsets.symmetric(vertical: 8.0), // Vertical margin
+                margin: const EdgeInsets.symmetric(vertical: 8.0), // Margin vertikal
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Product image
+                    // Gambar produk
                     ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
                       child: SizedBox(
@@ -73,8 +80,8 @@ class PopularProducts extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(width: 16), // Space between image and text
-                    // Product information (text) next to the image
+                    const SizedBox(width: 16), // Jarak antara gambar dan teks
+                    // Informasi produk (teks) di sebelah gambar
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
