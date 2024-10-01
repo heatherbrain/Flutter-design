@@ -6,6 +6,6 @@ import 'package:get/get.dart';
 
 void main() {
   runApp(MaterialApp(
-    home: ListOrderScreen(),
+    home: NavigationMenu(),
   ));
 }

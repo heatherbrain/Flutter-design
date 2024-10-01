@@ -1,3 +1,10 @@
+enum OrderStatus {
+  Lunas,
+  Tahan,
+  Batal,
+  Draft,
+}
+
 class Order {
   final String assetPath;
   final String name;
@@ -6,7 +13,7 @@ class Order {
   final String total;
   final String productsCount;
   final String statusLabel1;
-  final String statusLabel2;
+  final OrderStatus statusLabel2;
 
   Order({
     required this.assetPath,

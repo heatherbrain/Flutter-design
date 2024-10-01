@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:from_design/components/navigation_menu.dart';
 import 'package:from_design/model/order_model.dart';
+import 'package:from_design/screens/home_screen.dart';
+import 'package:get/get.dart';
 
 class ListOrderScreen extends StatefulWidget {
   @override
@@ -30,21 +33,22 @@ class _ListOrderScreenState extends State<ListOrderScreen>
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            // Tambahkan aksi untuk tombol back
+            // Kembali ke halaman Home
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => HomeScreen()),
+            );
           },
+
         ),
         actions: [
           IconButton(
             icon: const Icon(Icons.search),
-            onPressed: () {
-              // Aksi saat tombol pencarian ditekan
-            },
+            onPressed: () {},
           ),
           IconButton(
             icon: const Icon(Icons.filter_list),
-            onPressed: () {
-              // Aksi saat tombol filter ditekan
-            },
+            onPressed: () {},
           ),
         ],
         bottom: TabBar(
@@ -67,11 +71,11 @@ class _ListOrderScreenState extends State<ListOrderScreen>
       body: TabBarView(
         controller: _tabController,
         children: [
-          OrderList(),
-          Center(child: Text('Tahan Orders')),
-          Center(child: Text('Lunas Orders')),
-          Center(child: Text('Batal Orders')),
-          Center(child: Text('Draft Orders')),
+          OrderList(), // Semua orders
+          OrderList(statusFilter: OrderStatus.Tahan), // Filter orders Tahan
+          OrderList(statusFilter: OrderStatus.Lunas), // Filter orders Lunas
+          OrderList(statusFilter: OrderStatus.Batal), // Filter orders Batal
+          OrderList(statusFilter: OrderStatus.Draft), // Filter orders Draft
         ],
       ),
     );
@@ -79,6 +83,10 @@ class _ListOrderScreenState extends State<ListOrderScreen>
 }
 
 class OrderList extends StatelessWidget {
+  final OrderStatus? statusFilter;
+
+  OrderList({this.statusFilter});
+
   final List<Order> orders = [
     Order(
       assetPath: 'assets/images/budiorder.png',
@@ -88,7 +96,7 @@ class OrderList extends StatelessWidget {
       total: 'Rp 1.359.000',
       productsCount: '12 Produk',
       statusLabel1: 'Gold Member',
-      statusLabel2: 'Tahan',
+      statusLabel2: OrderStatus.Tahan,
     ),
     Order(
       assetPath: 'assets/images/tokpedorder.png',
@@ -98,7 +106,7 @@ class OrderList extends StatelessWidget {
       total: 'Rp 200.480',
       productsCount: '9 Produk',
       statusLabel1: 'Tokopedia',
-      statusLabel2: 'Tahan',
+      statusLabel2: OrderStatus.Tahan,
     ),
     Order(
       assetPath: 'assets/images/shoporder.png',
@@ -108,17 +116,42 @@ class OrderList extends StatelessWidget {
       total: 'Rp 82.340',
       productsCount: '5 Produk',
       statusLabel1: 'Shopee',
-      statusLabel2: 'Lunas',
+      statusLabel2: OrderStatus.Lunas,
+    ),
+    Order(
+      assetPath: 'assets/images/konveksiorder.png',
+      name: 'Konveksi Utama',
+      orderId: '#00097',
+      date: '5d ago',
+      total: 'Rp 200.480',
+      productsCount: '3 Produk',
+      statusLabel1: 'Spesial Member',
+      statusLabel2: OrderStatus.Draft,
+    ),
+    Order(
+      assetPath: 'assets/images/faqihorder.png',
+      name: 'Faqih',
+      orderId: '#00101',
+      date: '21/7/2024',
+      total: 'Rp 200.480',
+      productsCount: '1 Produk',
+      statusLabel1: 'Spesial Member',
+      statusLabel2: OrderStatus.Batal,
     ),
   ];
 
   @override
   Widget build(BuildContext context) {
+    // Filter the orders based on the statusFilter
+    final filteredOrders = statusFilter == null
+        ? orders
+        : orders.where((order) => order.statusLabel2 == statusFilter).toList();
+
     return ListView.builder(
       padding: EdgeInsets.all(10.0),
-      itemCount: orders.length,
+      itemCount: filteredOrders.length,
       itemBuilder: (context, index) {
-        return OrderContainer(order: orders[index]);
+        return OrderContainer(order: filteredOrders[index]);
       },
     );
   }
@@ -137,14 +170,21 @@ class OrderContainer extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey.shade300, width: 1),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              CircleAvatar(
-                backgroundImage: AssetImage(order.assetPath),
+              Container(
+                width: 40.0,
+                height: 40.0,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(order.assetPath),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
               SizedBox(width: 12),
               Expanded(
@@ -166,91 +206,107 @@ class OrderContainer extends StatelessWidget {
                 ),
               ),
               Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
-                    order.total,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        order.total,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(width: 4),
+                      Icon(Icons.more_vert, color: Colors.black),
+                    ],
                   ),
                   SizedBox(height: 4),
-                  Icon(Icons.more_vert, color: Colors.grey),
+                  Text(
+                    order.productsCount.toString(),
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.grey,
+                    ),
+                  ),
                 ],
               ),
             ],
           ),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           Row(
-  children: [
-    Icon(
-      Icons.circle, // Atau bisa menggunakan Icons.fiber_manual_record
-      size: 8, // Sesuaikan ukuran bulatan
-      color: Colors.white, // Warna bulatan
-    ),
-    SizedBox(width: 4), // Jarak antara ikon dan teks
-    Text(
-      'Tahan',
-      style: TextStyle(color: Colors.white), // Ubah warna teks sesuai kebutuhan
-    ),
-  ],
-)
-
+            children: [
+              _buildStatusChip(order.statusLabel1),
+              SizedBox(width: 8),
+              _buildStatusChip(order.statusLabel2.toString().split('.').last,
+                  isSecondary: true, showDot: true),
+            ],
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildStatusChip(String label, {bool isSecondary = false}) {
-    // Tentukan warna berdasarkan label
+  Widget _buildStatusChip(String label,
+      {bool isSecondary = false, bool showDot = false}) {
     Color bgColor;
     switch (label) {
       case 'Lunas':
-        bgColor = Color(0xFF0D9488); 
+        bgColor = Color(0xFF0D9488);
         break;
       case 'Tahan':
-        bgColor = Color(0xFF1E40AF); 
+        bgColor = Color(0xFF1E40AF);
         break;
       case 'Tokopedia':
-        bgColor = Color(0xFF00AA5B); 
+        bgColor = Color(0xFF00AA5B);
         break;
       case 'Gold Member':
-        bgColor = const Color(0xFFE69D48); 
+        bgColor = const Color(0xFFE69D48);
+        break;
+      case 'Spesial Member':
+        bgColor = const Color(0xFF3F4D5E);
+        break;
       case 'Shopee':
-        bgColor = const Color(0xFF1E40AF); 
+        bgColor = const Color(0xFFFE7650);
         break;
-        case 'Tiktok':
-        bgColor = const Color(0xFF181818); 
+      case 'Batal':
+        bgColor = const Color(0xFF991B1B);
         break;
-        case 'Batal':
-        bgColor = const Color(0xFF991B1B); 
-        break;
-        case 'Member':
-        bgColor = const Color(0xFFAD6953); 
-        break;
-        case 'Draft':
-        bgColor = const Color(0xFF979AA0); 
+      case 'Draft':
+        bgColor = const Color(0xFF979AA0);
         break;
       default:
-        bgColor = isSecondary ? Color(0xFF1E40AF) : Colors.orange; // Warna default
+        bgColor = isSecondary ? Color(0xFF1E40AF) : Colors.orange;
     }
-
-    Color textColor = Colors.white;
 
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
       decoration: BoxDecoration(
         color: bgColor,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(9),
       ),
-      child: Text(
-        label,
-        style: TextStyle(
-          color: textColor,
-          fontSize: 12,
-          fontWeight: FontWeight.w500,
-        ),
+      child: Row(
+        children: [
+          if (showDot)
+            Padding(
+              padding: const EdgeInsets.only(right: 4.0),
+              child: Icon(
+                Icons.circle,
+                size: 8,
+                color: Colors.white,
+              ),
+            ),
+          Text(
+            label,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
       ),
     );
   }
