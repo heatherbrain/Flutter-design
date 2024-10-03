@@ -33,13 +33,8 @@ class _ListOrderScreenState extends State<ListOrderScreen>
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            // Kembali ke halaman Home
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => HomeScreen()),
-            );
+            Get.back();
           },
-
         ),
         actions: [
           IconButton(
@@ -55,7 +50,7 @@ class _ListOrderScreenState extends State<ListOrderScreen>
           controller: _tabController,
           labelColor: Colors.black,
           unselectedLabelColor: Colors.grey,
-          indicator: UnderlineTabIndicator(
+          indicator: const UnderlineTabIndicator(
             borderSide: BorderSide(width: 3.0, color: Color(0xFFF74904)),
             insets: EdgeInsets.symmetric(horizontal: 56.0),
           ),
@@ -71,11 +66,11 @@ class _ListOrderScreenState extends State<ListOrderScreen>
       body: TabBarView(
         controller: _tabController,
         children: [
-          OrderList(), // Semua orders
-          OrderList(statusFilter: OrderStatus.Tahan), // Filter orders Tahan
-          OrderList(statusFilter: OrderStatus.Lunas), // Filter orders Lunas
-          OrderList(statusFilter: OrderStatus.Batal), // Filter orders Batal
-          OrderList(statusFilter: OrderStatus.Draft), // Filter orders Draft
+          OrderList(), // Semua order
+          OrderList(statusFilter: OrderStatus.Tahan), 
+          OrderList(statusFilter: OrderStatus.Lunas), 
+          OrderList(statusFilter: OrderStatus.Batal), 
+          OrderList(statusFilter: OrderStatus.Draft), 
         ],
       ),
     );
@@ -142,7 +137,6 @@ class OrderList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Filter the orders based on the statusFilter
     final filteredOrders = statusFilter == null
         ? orders
         : orders.where((order) => order.statusLabel2 == statusFilter).toList();
@@ -165,8 +159,8 @@ class OrderContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 8.0),
-      padding: EdgeInsets.all(16.0),
+      margin: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
@@ -186,14 +180,14 @@ class OrderContainer extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(width: 12),
+              const SizedBox(width: 12),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       order.name,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
@@ -213,19 +207,85 @@ class OrderContainer extends StatelessWidget {
                     children: [
                       Text(
                         order.total,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(width: 4),
-                      Icon(Icons.more_vert, color: Colors.black),
+                      const SizedBox(width: 4),
+                      Theme(
+                        data: Theme.of(context).copyWith(
+                          popupMenuTheme: PopupMenuThemeData(
+                            color: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                        ),
+                        child: PopupMenuButton<int>(
+                          icon:
+                              const Icon(Icons.more_vert, color: Colors.black),
+                          onSelected: (value) {
+                            if (value == 0) {
+                            } else if (value == 1) {
+                            } else if (value == 2) {
+                            } else if (value == 3) {
+                            }
+                          },
+                          itemBuilder: (context) => [
+                            const PopupMenuItem(
+                              value: 0,
+                              child: Row(
+                                children: [
+                                  Icon(Icons.edit_outlined,
+                                      color: Colors.black),
+                                  SizedBox(width: 8),
+                                  Text("Edit"),
+                                ],
+                              ),
+                            ),
+                            const PopupMenuItem(
+                              value: 1,
+                              child: Row(
+                                children: [
+                                  Icon(Icons.share_outlined,
+                                      color: Colors.black),
+                                  SizedBox(width: 8),
+                                  Text("Share"),
+                                ],
+                              ),
+                            ),
+                            const PopupMenuItem(
+                              value: 2,
+                              child: Row(
+                                children: [
+                                  Icon(Icons.insert_drive_file_outlined,
+                                      color: Colors.black),
+                                  SizedBox(width: 8),
+                                  Text("Laporan"),
+                                ],
+                              ),
+                            ),
+                            const PopupMenuItem(
+                              value: 3,
+                              child: Row(
+                                children: [
+                                  Icon(Icons.delete_outline,
+                                      color: Colors.black),
+                                  SizedBox(width: 8),
+                                  Text("Hapus"),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
                     ],
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   Text(
                     order.productsCount.toString(),
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
                       color: Colors.grey,
@@ -239,9 +299,12 @@ class OrderContainer extends StatelessWidget {
           Row(
             children: [
               _buildStatusChip(order.statusLabel1),
-              SizedBox(width: 8),
-              _buildStatusChip(order.statusLabel2.toString().split('.').last,
-                  isSecondary: true, showDot: true),
+              const SizedBox(width: 8),
+              _buildStatusChip(
+                order.statusLabel2.toString().split('.').last,
+                isSecondary: true,
+                showDot: true,
+              ),
             ],
           ),
         ],
@@ -254,13 +317,13 @@ class OrderContainer extends StatelessWidget {
     Color bgColor;
     switch (label) {
       case 'Lunas':
-        bgColor = Color(0xFF0D9488);
+        bgColor = const Color(0xFF0D9488);
         break;
       case 'Tahan':
-        bgColor = Color(0xFF1E40AF);
+        bgColor = const Color(0xFF1E40AF);
         break;
       case 'Tokopedia':
-        bgColor = Color(0xFF00AA5B);
+        bgColor = const Color(0xFF00AA5B);
         break;
       case 'Gold Member':
         bgColor = const Color(0xFFE69D48);
@@ -278,11 +341,11 @@ class OrderContainer extends StatelessWidget {
         bgColor = const Color(0xFF979AA0);
         break;
       default:
-        bgColor = isSecondary ? Color(0xFF1E40AF) : Colors.orange;
+        bgColor = isSecondary ? const Color(0xFF1E40AF) : Colors.orange;
     }
 
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
       decoration: BoxDecoration(
         color: bgColor,
         borderRadius: BorderRadius.circular(9),
@@ -290,8 +353,8 @@ class OrderContainer extends StatelessWidget {
       child: Row(
         children: [
           if (showDot)
-            Padding(
-              padding: const EdgeInsets.only(right: 4.0),
+            const Padding(
+              padding: EdgeInsets.only(right: 4.0),
               child: Icon(
                 Icons.circle,
                 size: 8,
@@ -300,7 +363,7 @@ class OrderContainer extends StatelessWidget {
             ),
           Text(
             label,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 12,
               fontWeight: FontWeight.w500,

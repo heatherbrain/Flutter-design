@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:from_design/screens/add_order_screen.dart';
 import 'package:from_design/screens/home_screen.dart';
 import 'package:from_design/screens/order_screen.dart';
 import 'package:get/get.dart';
@@ -37,7 +38,6 @@ class NavigationMenu extends StatelessWidget {
                         controller: controller),
                   ],
                 ),
-                // Bagian kanan dari BottomAppBar
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -60,35 +60,34 @@ class NavigationMenu extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          Get.to(AddOrderScreen());
         },
         backgroundColor: Colors.transparent,
-  elevation: 0,
-  child: Container(
-    width: 60,
-    height: 60,
-    decoration: BoxDecoration(
-      shape: BoxShape.circle,
-      gradient: const LinearGradient(
-        colors: [Color(0xFFFF6422), Color(0xFFF54A00)],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-      ),
-      boxShadow: const [
-        BoxShadow(
-          color: Color(0xFFFFF4F0), 
-          spreadRadius: 9,
-          // blurRadius: 10, 
-          // offset: Offset(0, 3), 
+        elevation: 0,
+        child: Container(
+          width: 60,
+          height: 60,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            gradient: const LinearGradient(
+              colors: [Color(0xFFFF6422), Color(0xFFF54A00)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            boxShadow: const [
+              BoxShadow(
+                color: Color(0xFFFFF4F0),
+                spreadRadius: 9,
+              ),
+            ],
+          ),
+          child: const Icon(
+            Icons.add_rounded,
+            size: 34,
+            color: Colors.white,
+          ),
         ),
-      ],
-    ),
-    child: const Icon(
-      Icons.add_rounded,
-      size: 34,
-      color: Colors.white,
-    ),
-  ),
-),
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
