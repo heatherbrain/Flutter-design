@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart'; // Pastikan import GoogleFonts
 
 class NotificationList extends StatelessWidget {
-  const NotificationList({Key? key}) : super(key: key);
+  const NotificationList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +10,7 @@ class NotificationList extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(11.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -42,7 +42,7 @@ class NotificationList extends StatelessWidget {
           ),
         ),
         Container(
-          margin: const EdgeInsets.symmetric(horizontal: 16),
+          margin: const EdgeInsets.symmetric(horizontal: 11),
           decoration: BoxDecoration(
             color: const Color(0xFFFEF2F2),
             borderRadius: BorderRadius.circular(8),
@@ -56,8 +56,8 @@ class NotificationList extends StatelessWidget {
                 height: 40,
               ),
             ),
-            title: Row(
-              children: const [
+            title: const Row(
+              children: [
                 Text(
                   '9 ',
                   style: TextStyle(

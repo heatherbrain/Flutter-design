@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:from_design/screens/stock_screen.dart';
 import 'package:from_design/widget/home/marketplace.dart';
 import 'package:from_design/widget/home/notification.dart';
 import 'package:from_design/widget/home/product_slide.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -38,7 +39,10 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildSalesCardSlider(),
+              SizedBox(
+                // height: 230,
+                child: _buildSalesCardSlider(),
+              ),
               const SizedBox(height: 20),
               _buildActionButtons(),
               const SizedBox(height: 20),
@@ -47,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
               _buildTransactionFilter(),
               const SizedBox(height: 20),
               Marketplace(),
-              NotificationList(),
+              const NotificationList(),
               PopularProducts(),
             ],
           ),
@@ -56,14 +60,13 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // Menggunakan PageView untuk membuat card bisa digeser
   Widget _buildSalesCardSlider() {
     return SizedBox(
-      height: 200, // Sesuaikan tinggi card sesuai kebutuhan
+      height: 225,
       child: PageView(
         children: [
           _buildSalesCard1(),
-          _buildSalesCard2(), // Card kedua, Anda bisa mengganti konten ini
+          _buildSalesCard2(),
         ],
       ),
     );
@@ -79,7 +82,6 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -132,26 +134,22 @@ class _HomeScreenState extends State<HomeScreen> {
                               style: GoogleFonts.notoSans(
                                   fontSize: 12, color: Colors.grey),
                             ),
-                            Row(
-
-                            children: [
+                            Row(children: [
                               Text(
                                 'Rp',
                                 style: GoogleFonts.notoSans(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                              ), 
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                ),
                               ),
-                            Text(
-                              '800RB',
-                              style: GoogleFonts.notoSans(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
+                              Text(
+                                '800RB',
+                                style: GoogleFonts.notoSans(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
-                            ),
-                            ] 
-                              
-                            )
+                            ])
                           ],
                         ),
                         const SizedBox(width: 20),
@@ -163,26 +161,22 @@ class _HomeScreenState extends State<HomeScreen> {
                               style: GoogleFonts.notoSans(
                                   fontSize: 12, color: Colors.grey),
                             ),
-                            Row(
-
-                            children: [
+                            Row(children: [
                               Text(
                                 'Rp',
                                 style: GoogleFonts.notoSans(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                              ), 
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                ),
                               ),
-                            Text(
-                              '800RB',
-                              style: GoogleFonts.notoSans(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
+                              Text(
+                                '800RB',
+                                style: GoogleFonts.notoSans(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
-                            ),
-                            ] 
-                              
-                            )
+                            ])
                           ],
                         ),
                       ],
@@ -209,7 +203,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -262,13 +256,22 @@ class _HomeScreenState extends State<HomeScreen> {
                               style: GoogleFonts.notoSans(
                                   fontSize: 12, color: Colors.grey),
                             ),
-                            Text(
-                              'Rp3.5JT',
-                              style: GoogleFonts.notoSans(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
+                            Row(children: [
+                              Text(
+                                'Rp',
+                                style: GoogleFonts.notoSans(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                ),
                               ),
-                            ),
+                              Text(
+                                '3.5JT',
+                                style: GoogleFonts.notoSans(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ])
                           ],
                         ),
                         const SizedBox(width: 20),
@@ -280,13 +283,22 @@ class _HomeScreenState extends State<HomeScreen> {
                               style: GoogleFonts.notoSans(
                                   fontSize: 12, color: Colors.grey),
                             ),
-                            Text(
-                              'Rp2.4JT',
-                              style: GoogleFonts.notoSans(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
+                            Row(children: [
+                              Text(
+                                'Rp',
+                                style: GoogleFonts.notoSans(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                ),
                               ),
-                            ),
+                              Text(
+                                '2.4JT  ',
+                                style: GoogleFonts.notoSans(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ])
                           ],
                         ),
                       ],
@@ -318,27 +330,33 @@ class _HomeScreenState extends State<HomeScreen> {
             _buildActionButton(
               'List Product',
               Icons.list_outlined,
-              Color(0xFFECEBFF),
-              Color(0xFF574EFA),
+              const Color(0xFFECEBFF),
+              const Color(0xFF574EFA),
             ),
             _buildActionButtonWithBadge(
               'Min. Stock',
               Icons.inbox_outlined,
-              Color(0xFFFEF2F2),
-              Color(0xFFDC2626),
+              const Color(0xFFFEF2F2),
+              const Color(0xFFDC2626),
               9,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => StockScreen()),
+                );
+              },
             ),
             _buildActionButton(
               'Stock Adj.',
               Icons.settings_outlined,
-              Color(0xFFF0FDF4),
-              Color(0xFF16A34A),
+              const Color(0xFFF0FDF4),
+              const Color(0xFF16A34A),
             ),
             _buildActionButton(
               'Pelanggan',
               Icons.people_outline,
-              Color(0xFFFFFAF2),
-              Color(0xFFEEA23E),
+              const Color(0xFFFFFAF2),
+              const Color(0xFFEEA23E),
             ),
           ],
         ),
@@ -348,7 +366,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildTransactionSection() {
     return Container(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(5.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -381,7 +399,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 5),
           _buildCustomerMemberSwitch(),
         ],
       ),
@@ -395,7 +413,7 @@ class _HomeScreenState extends State<HomeScreen> {
         Container(
           padding: const EdgeInsets.all(4),
           decoration: BoxDecoration(
-            color: Color(0xFFEFEFF1),
+            color: const Color(0xFFEFEFF1),
             borderRadius: BorderRadius.circular(14.0),
           ),
           child: Row(
@@ -426,7 +444,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Text(
           label,
           style: GoogleFonts.notoSans(
-            color: isSelected[index] ? Color(0xFFF74904) : Colors.grey,
+            color: isSelected[index] ? const Color(0xFFF74904) : Colors.grey,
             fontSize: 14,
             fontWeight: FontWeight.w500,
           ),
@@ -461,62 +479,65 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-
-  Widget _buildActionButtonWithBadge(
-      String label, IconData icon, Color backgroundColor, Color iconColor, int badgeCount) {
-    return Column(
-      children: [
-        Stack(
-          clipBehavior: Clip.none,
-          children: [
-            _buildIconButton(icon, backgroundColor, iconColor),
-            Positioned(
-              top: -4,
-              right: -4,
-              child: Container(
-                padding: const EdgeInsets.all(4),
-                decoration: const BoxDecoration(
-                  color: Colors.red,
-                  shape: BoxShape.circle,
-                ),
-                child: Text(
-                  '$badgeCount',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                  ),
+Widget _buildActionButtonWithBadge(
+  String label,
+  IconData icon,
+  Color backgroundColor,
+  Color iconColor,
+  int badgeCount, {
+  required void Function()? onTap,
+}) {
+  return Column(
+    children: [
+      Stack(
+        clipBehavior: Clip.none,
+        children: [
+          _buildIconButton(icon, backgroundColor, iconColor),
+          Positioned(
+            top: -4,
+            right: -4,
+            child: Container(
+              padding: const EdgeInsets.all(4),
+              decoration: const BoxDecoration(
+                color: Colors.red,
+                shape: BoxShape.circle,
+              ),
+              child: Text(
+                '$badgeCount',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
                 ),
               ),
             ),
-          ],
-        ),
-        const SizedBox(height: 6),
-        Text(label, style: GoogleFonts.notoSans(fontSize: 12)),
-      ],
-    );
-  }
-
-  Widget _buildActionButton(
-      String label, IconData icon, Color backgroundColor, Color iconColor) {
-    return Column(
-      children: [
-        _buildIconButton(icon, backgroundColor, iconColor),
-        const SizedBox(height: 6),
-        Text(label, style: GoogleFonts.notoSans(fontSize: 12)),
-      ],
-    );
-  }
-
-  Widget _buildIconButton(
-      IconData icon, Color backgroundColor, Color iconColor) {
-    return Container(
-      height: 50,
-      width: 50,
-      decoration: BoxDecoration(
-        color: backgroundColor,
-        borderRadius: BorderRadius.circular(12),
+          ),
+        ],
       ),
-      child: Icon(icon, color: iconColor),
-    );
-  }
+      const SizedBox(height: 6),
+      Text(label, style: GoogleFonts.notoSans(fontSize: 12)),
+    ],
+  );
+}
 
+Widget _buildActionButton(
+    String label, IconData icon, Color backgroundColor, Color iconColor) {
+  return Column(
+    children: [
+      _buildIconButton(icon, backgroundColor, iconColor),
+      const SizedBox(height: 6),
+      Text(label, style: GoogleFonts.notoSans(fontSize: 12)),
+    ],
+  );
+}
+
+Widget _buildIconButton(IconData icon, Color backgroundColor, Color iconColor) {
+  return Container(
+    height: 50,
+    width: 50,
+    decoration: BoxDecoration(
+      color: backgroundColor,
+      borderRadius: BorderRadius.circular(12),
+    ),
+    child: Icon(icon, color: iconColor),
+  );
+}

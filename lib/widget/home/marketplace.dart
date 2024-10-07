@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Marketplace extends StatelessWidget {
+  const Marketplace({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -13,21 +15,21 @@ class Marketplace extends StatelessWidget {
             'assets/images/AvatarTokped.png', // Menggunakan asset image
             '1,2RB',
             'terjual',
-            Color(0xFFF0FDF4),
+            const Color(0xFFF0FDF4),
           ),
           _buildMarketplaceCard(
             'Shopee',
             'assets/images/AvatarShopee.png', // Menggunakan asset image
             '2,8RB',
             'terjual',
-            Color(0xFFFFF4F0),
+            const Color(0xFFFFF4F0),
           ),
           _buildMarketplaceCard(
             'TikTok',
             'assets/images/Avatar.png', // Menggunakan asset image
             '500',
             'terjual',
-            Color(0xFFEFEFF1),
+            const Color(0xFFEFEFF1),
           ),
         ],
       ),
@@ -88,7 +90,7 @@ class Marketplace extends StatelessWidget {
                   const SizedBox(width: 4), // Tambahkan spasi
                   Text(
                     mini,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                       color: Colors.grey,

@@ -4,13 +4,18 @@ import 'package:from_design/screens/home_screen.dart';
 import 'package:from_design/screens/order_screen.dart';
 import 'package:get/get.dart';
 
-class NavigationMenu extends StatelessWidget {
+class NavigationMenu extends StatefulWidget {
   const NavigationMenu({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final controller = Get.put(NavigationController());
+  _NavigationMenuState createState() => _NavigationMenuState();
+}
 
+class _NavigationMenuState extends State<NavigationMenu> {
+  final NavigationController controller = Get.put(NavigationController());
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Obx(() => controller.screens[controller.selectedIndex.value]),
       bottomNavigationBar: Obx(
@@ -60,7 +65,7 @@ class NavigationMenu extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.to(AddOrderScreen());
+          Get.to(() => const AddOrderScreen());
         },
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -92,12 +97,12 @@ class NavigationMenu extends StatelessWidget {
     );
   }
 
-  // Widget untuk membuat item navigasi
-  Widget _buildNavItem(
-      {required IconData icon,
-      required String label,
-      required int index,
-      required NavigationController controller}) {
+  Widget _buildNavItem({
+    required IconData icon,
+    required String label,
+    required int index,
+    required NavigationController controller,
+  }) {
     return MaterialButton(
       minWidth: 40,
       onPressed: () {

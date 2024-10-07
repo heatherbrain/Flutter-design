@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart'; // Tambahkan import ini
+import 'package:google_fonts/google_fonts.dart';
 
 class PopularProducts extends StatelessWidget {
   final List<Map<String, String>> products = [
@@ -22,6 +22,8 @@ class PopularProducts extends StatelessWidget {
       'stock': '21pcs',
     },
   ];
+
+   PopularProducts({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +50,8 @@ class PopularProducts extends StatelessWidget {
                         color: Colors.grey,
                       ),
                     ),
-                    Icon(Icons.arrow_forward_ios, size: 12, color: Colors.grey),
+                    const SizedBox(width: 4),
+                    const Icon(Icons.arrow_forward, size: 16, color: Colors.grey),
                   ],
                 ),
               ),
@@ -56,19 +59,17 @@ class PopularProducts extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 16),
-        // Menggunakan ListView untuk scrolling vertikal
         SizedBox(
-          height: 300, // Atur tinggi untuk mengizinkan scrolling vertikal
+          height: 300,
           child: ListView.builder(
             itemCount: products.length,
             itemBuilder: (context, index) {
               final product = products[index];
               return Container(
-                margin: const EdgeInsets.symmetric(vertical: 8.0), // Margin vertikal
+                margin: const EdgeInsets.symmetric(vertical: 8.0),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Gambar produk
                     ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
                       child: SizedBox(
@@ -80,8 +81,7 @@ class PopularProducts extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(width: 16), // Jarak antara gambar dan teks
-                    // Informasi produk (teks) di sebelah gambar
+                    const SizedBox(width: 16),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
