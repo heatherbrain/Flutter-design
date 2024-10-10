@@ -3,6 +3,7 @@ import 'package:from_design/screens/add_order_screen.dart';
 import 'package:from_design/screens/home_screen.dart';
 import 'package:from_design/screens/order_screen.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class NavigationMenu extends StatefulWidget {
   const NavigationMenu({super.key});
@@ -119,7 +120,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
           ),
           Text(
             label,
-            style: TextStyle(
+            style: GoogleFonts.notoSans(
               color: controller.selectedIndex.value == index
                   ? const Color.fromARGB(255, 245, 74, 0)
                   : Colors.grey,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:from_design/screens/stock_screen.dart';
+import 'package:from_design/screens/minstock_screen.dart';
 import 'package:from_design/widget/home/marketplace.dart';
 import 'package:from_design/widget/home/notification.dart';
 import 'package:from_design/widget/home/product_slide.dart';

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class StockScreen extends StatelessWidget {
   const StockScreen({Key? key}) : super(key: key);
@@ -12,11 +13,11 @@ class StockScreen extends StatelessWidget {
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text('Minimal Stok',
-            style: TextStyle(
+        title: Text('Minimal Stok',
+            style: GoogleFonts.notoSans(
                 color: Colors.black,
-                fontSize: 18,
-                fontWeight: FontWeight.w500)),
+                fontSize: 20,
+                fontWeight: FontWeight.w400)),
         backgroundColor: Colors.white,
         elevation: 0,
       ),
@@ -44,7 +45,7 @@ class StockScreen extends StatelessWidget {
       child: TextField(
         decoration: InputDecoration(
           hintText: 'Cari produk',
-          hintStyle: TextStyle(color: Colors.grey[500]),
+          hintStyle: GoogleFonts.notoSans(color: Colors.grey[500]),
           prefixIcon: Icon(Icons.search, color: Colors.grey[500]),
           suffixIcon: Container(
             margin: const EdgeInsets.all(8),
@@ -158,8 +159,8 @@ class ProductItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(title,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w500, fontSize: 15)),
+                    style: GoogleFonts.notoSans(
+                        fontWeight: FontWeight.w400, fontSize: 14)),
                 const SizedBox(height: 4),
                 Row(
                   children: [
@@ -167,24 +168,31 @@ class ProductItem extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 2),
                       decoration: BoxDecoration(
-                        color: color == 'Hitam' ? Colors.black : Color(0xFF1E40AF),
+                        color:
+                            color == 'Hitam' ? Colors.black : Color(0xFF1E40AF),
                         borderRadius: BorderRadius.circular(4),
                       ),
                       child: Text(color,
-                          style: const TextStyle(
+                          style: GoogleFonts.notoSans(
                               color: Colors.white, fontSize: 12)),
                     ),
                     const SizedBox(width: 8),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 2),
+                          horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius: BorderRadius.circular(4),
+                        border: Border.all(
+                            color: Colors.grey), 
+                        borderRadius:
+                            BorderRadius.circular(8), 
                       ),
-                      child: Text(size,
-                          style:
-                              TextStyle(color: Colors.grey[700], fontSize: 12)),
+                      child: Text(
+                        size,
+                        style: GoogleFonts.notoSans(
+                          color: Colors.grey[700],
+                          fontSize: 12,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -193,16 +201,16 @@ class ProductItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text('Stok: $stock',
-                        style:
-                            TextStyle(color: Colors.grey[600], fontSize: 12)),
+                        style: GoogleFonts.notoSans(
+                            color: Colors.grey[600], fontSize: 12)),
                     Container(
                       height: 15,
                       width: 1,
                       color: Colors.grey[300],
                     ),
                     Text('Min Stok: $minStock',
-                        style:
-                            TextStyle(color: Colors.grey[600], fontSize: 12)),
+                        style: GoogleFonts.notoSans(
+                            color: Colors.grey[600], fontSize: 12)),
                     Container(
                       height: 15,
                       width: 1,
@@ -210,10 +218,10 @@ class ProductItem extends StatelessWidget {
                     ),
                     Text(
                       'Restok: ${restockAmount.abs()}',
-                      style: TextStyle(
+                      style: GoogleFonts.notoSans(
                         color: const Color(0xFFF74904),
                         fontSize: 12,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                   ],

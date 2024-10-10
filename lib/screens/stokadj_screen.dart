@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-
-class AddOrderScreen extends StatefulWidget {
-  const AddOrderScreen({super.key});
+class StockadjScreen extends StatefulWidget {
+  const StockadjScreen({super.key});
 
   @override
-  _AddOrderScreenState createState() => _AddOrderScreenState();
+  _StockadjScreenState createState() => _StockadjScreenState();
 }
 
-class _AddOrderScreenState extends State<AddOrderScreen> {
+class _StockadjScreenState extends State<StockadjScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +19,7 @@ class _AddOrderScreenState extends State<AddOrderScreen> {
           onPressed: () => Navigator.of(context).pop(),
         ),
         title:
-             Text('Tambah Order', style:GoogleFonts.notoSans(color: Colors.black)),
+            const Text('Stok Adj', style: TextStyle(color: Colors.black)),
         backgroundColor: Colors.white,
         elevation: 0,
         shadowColor: Colors.black,
@@ -67,7 +65,7 @@ class _AddOrderScreenState extends State<AddOrderScreen> {
           prefixIcon: Icon(Icons.search, color: Colors.grey[400]),
           hintText: 'Cari produk',
           hintStyle:
-              GoogleFonts.notoSans(color: Colors.grey[400], fontWeight: FontWeight.w400),
+              TextStyle(color: Colors.grey[400], fontWeight: FontWeight.w400),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.0),
             borderSide: BorderSide(color: Colors.grey[200]!),
@@ -99,14 +97,14 @@ class _AddOrderScreenState extends State<AddOrderScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-           Text('Kategori Member',
-              style: GoogleFonts.notoSans(fontSize: 14, fontWeight: FontWeight.w400)),
+          const Text('Kategori Member',
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
           TextButton(
             onPressed: () {},
-            child:  Row(
+            child: const Row(
               children: [
                 Text('Pilih Member',
-                    style: GoogleFonts.notoSans(
+                    style: TextStyle(
                         color: Colors.grey,
                         fontSize: 12,
                         fontWeight: FontWeight.w400)),
@@ -165,13 +163,13 @@ class _AddOrderScreenState extends State<AddOrderScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-           Column(
+          const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('Total Pembayaran',
-                  style: GoogleFonts.notoSans(fontSize: 14, fontWeight: FontWeight.w400)),
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
               Text('Rp 0',
-                  style: GoogleFonts.notoSans(
+                  style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Colors.red)),
@@ -185,9 +183,9 @@ class _AddOrderScreenState extends State<AddOrderScreen> {
                 borderRadius: BorderRadius.circular(8.0),
               ),
             ),
-            child:  Text(
+            child: const Text(
               'Order (0)',
-              style: GoogleFonts.notoSans(fontSize: 16, color: Colors.grey),
+              style: TextStyle(fontSize: 16, color: Colors.grey),
             ),
           ),
         ],
@@ -254,7 +252,7 @@ class _ProductItemState extends State<ProductItem> {
                 widget.isLowStock
                     ? 'Tersisa ${widget.stock}'
                     : 'Stok: ${widget.stock}',
-                style: GoogleFonts.notoSans(
+                style: TextStyle(
                   color: widget.isLowStock ? Colors.red : Colors.grey,
                   fontWeight:
                       widget.isLowStock ? FontWeight.bold : FontWeight.normal,
@@ -270,7 +268,7 @@ class _ProductItemState extends State<ProductItem> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(widget.title,
-                    style: GoogleFonts.notoSans(fontWeight: FontWeight.bold)),
+                    style: const TextStyle(fontWeight: FontWeight.bold)),
                 const SizedBox(height: 4),
                 _buildDropdown('Pilih warna dan size'),
                 const SizedBox(height: 4),
@@ -293,7 +291,7 @@ class _ProductItemState extends State<ProductItem> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(text, style: GoogleFonts.notoSans(fontSize: 12, color: Colors.grey)),
+          Text(text, style: const TextStyle(fontSize: 12, color: Colors.grey)),
           const Icon(Icons.arrow_drop_down, size: 16, color: Colors.grey),
         ],
       ),
