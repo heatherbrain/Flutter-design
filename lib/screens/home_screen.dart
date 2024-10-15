@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:from_design/screens/minstock_screen.dart';
+import 'package:from_design/screens/stokadj_screen.dart';
 import 'package:from_design/widget/home/marketplace.dart';
 import 'package:from_design/widget/home/notification.dart';
 import 'package:from_design/widget/home/product_slide.dart';
+import 'package:get/get.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -30,6 +33,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+            backgroundColor: Color.fromARGB(255, 250, 250, 250),
+
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 245, 74, 0),
       ),
@@ -327,12 +332,9 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _buildActionButton(
-              'List Product',
-              Icons.list_outlined,
-              const Color(0xFFECEBFF),
-              const Color(0xFF574EFA),
-            ),
+            _buildActionButton('List Product', Icons.list_outlined,
+                const Color(0xFFECEBFF), const Color(0xFF574EFA),
+                onTap: () {}),
             _buildActionButtonWithBadge(
               'Min. Stock',
               Icons.inbox_outlined,
@@ -340,10 +342,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const Color(0xFFDC2626),
               9,
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => StockScreen()),
-                );
+                Get.to(() => MinstockScreen());
               },
             ),
             _buildActionButton(
@@ -351,13 +350,13 @@ class _HomeScreenState extends State<HomeScreen> {
               Icons.settings_outlined,
               const Color(0xFFF0FDF4),
               const Color(0xFF16A34A),
+              onTap: () {
+                Get.to(() => StockadjScreen());
+              },
             ),
-            _buildActionButton(
-              'Pelanggan',
-              Icons.people_outline,
-              const Color(0xFFFFFAF2),
-              const Color(0xFFEEA23E),
-            ),
+            _buildActionButton('Pelanggan', Icons.people_outline,
+                const Color(0xFFFFFAF2), const Color(0xFFEEA23E),
+                onTap: () {}),
           ],
         ),
       ),
@@ -487,46 +486,57 @@ Widget _buildActionButtonWithBadge(
   int badgeCount, {
   required void Function()? onTap,
 }) {
-  return Column(
-    children: [
-      Stack(
-        clipBehavior: Clip.none,
-        children: [
-          _buildIconButton(icon, backgroundColor, iconColor),
-          Positioned(
-            top: -4,
-            right: -4,
-            child: Container(
-              padding: const EdgeInsets.all(4),
-              decoration: const BoxDecoration(
-                color: Colors.red,
-                shape: BoxShape.circle,
-              ),
-              child: Text(
-                '$badgeCount',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 12,
+  return GestureDetector(
+    onTap: onTap,
+    child: Column(
+      children: [
+        Stack(
+          clipBehavior: Clip.none,
+          children: [
+            _buildIconButton(icon, backgroundColor, iconColor),
+            Positioned(
+              top: -4,
+              right: -4,
+              child: Container(
+                padding: const EdgeInsets.all(4),
+                decoration: const BoxDecoration(
+                  color: Colors.red,
+                  shape: BoxShape.circle,
+                ),
+                child: Text(
+                  '$badgeCount',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-      const SizedBox(height: 6),
-      Text(label, style: GoogleFonts.notoSans(fontSize: 12)),
-    ],
+          ],
+        ),
+        const SizedBox(height: 6),
+        Text(label, style: GoogleFonts.notoSans(fontSize: 12)),
+      ],
+    ),
   );
 }
 
 Widget _buildActionButton(
-    String label, IconData icon, Color backgroundColor, Color iconColor) {
-  return Column(
-    children: [
-      _buildIconButton(icon, backgroundColor, iconColor),
-      const SizedBox(height: 6),
-      Text(label, style: GoogleFonts.notoSans(fontSize: 12)),
-    ],
+  String label,
+  IconData icon,
+  Color backgroundColor,
+  Color iconColor, {
+  required void Function()? onTap,
+}) {
+  return GestureDetector(
+    onTap: onTap,
+    child: Column(
+      children: [
+        _buildIconButton(icon, backgroundColor, iconColor),
+        const SizedBox(height: 6),
+        Text(label, style: GoogleFonts.notoSans(fontSize: 12)),
+      ],
+    ),
   );
 }
 

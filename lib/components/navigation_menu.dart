@@ -66,7 +66,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.to(() => const AddOrderScreen());
+          Get.to(() => AddOrderScreen());
         },
         backgroundColor: Colors.transparent,
         elevation: 0,

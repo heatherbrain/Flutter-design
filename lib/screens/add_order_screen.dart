@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:from_design/components/navigation_menu.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 
 class AddOrderScreen extends StatefulWidget {
   const AddOrderScreen({super.key});
@@ -14,14 +14,16 @@ class _AddOrderScreenState extends State<AddOrderScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F9FB),
+      backgroundColor: Color.fromARGB(255, 250, 250, 250),
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () {
+            Get.offAll(() => NavigationMenu());
+          },
         ),
-        title:
-             Text('Tambah Order', style:GoogleFonts.notoSans(color: Colors.black)),
+        title: Text('Tambah Order',
+            style: GoogleFonts.notoSans(color: Colors.black)),
         backgroundColor: Colors.white,
         elevation: 0,
         shadowColor: Colors.black,
@@ -36,8 +38,8 @@ class _AddOrderScreenState extends State<AddOrderScreen> {
                 children: [
                   _buildSearchBar(),
                   const SizedBox(height: 20),
-
                   _buildMemberCategorySection(),
+                                    const SizedBox(height: 20),
 
                   Expanded(
                     child: _buildProductList(),
@@ -46,7 +48,6 @@ class _AddOrderScreenState extends State<AddOrderScreen> {
               ),
             ),
           ),
-
           _buildFooter(),
         ],
       ),
@@ -66,8 +67,8 @@ class _AddOrderScreenState extends State<AddOrderScreen> {
           filled: true,
           prefixIcon: Icon(Icons.search, color: Colors.grey[400]),
           hintText: 'Cari produk',
-          hintStyle:
-              GoogleFonts.notoSans(color: Colors.grey[400], fontWeight: FontWeight.w400),
+          hintStyle: GoogleFonts.notoSans(
+              color: Colors.grey[400], fontWeight: FontWeight.w400),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.0),
             borderSide: BorderSide(color: Colors.grey[200]!),
@@ -93,36 +94,42 @@ class _AddOrderScreenState extends State<AddOrderScreen> {
     );
   }
 
-  Widget _buildMemberCategorySection() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-           Text('Kategori Member',
-              style: GoogleFonts.notoSans(fontSize: 14, fontWeight: FontWeight.w400)),
-          TextButton(
-            onPressed: () {},
-            child:  Row(
-              children: [
-                Text('Pilih Member',
-                    style: GoogleFonts.notoSans(
-                        color: Colors.grey,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400)),
-                Icon(Icons.chevron_right, color: Colors.grey),
-              ],
-            ),
+ Widget _buildMemberCategorySection() {
+  return Container(
+    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
+    ),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text('Kategori Member',
+            style: GoogleFonts.notoSans(
+                fontSize: 14, fontWeight: FontWeight.w400)),
+        TextButton(
+          onPressed: () {},
+          child: Row(
+            children: [
+              Text('Pilih Member',
+                  style: GoogleFonts.notoSans(
+                      color: Colors.grey,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400)),
+              const Icon(Icons.chevron_right, color: Colors.grey),
+            ],
           ),
-        ],
-      ),
-    );
-  }
+        ),
+      ],
+    ),
+  );
+}
+
 
   Widget _buildProductList() {
     return ListView(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      children: [
+      children: const [
         ProductItem(
           title: 'Pendek 30\'s (New)',
           stock: 645,
@@ -151,41 +158,43 @@ class _AddOrderScreenState extends State<AddOrderScreen> {
   Widget _buildFooter() {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 27.0),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.white,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(16.0)),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black12,
             blurRadius: 7.0,
-            offset: const Offset(0, -2),
+            offset: Offset(0, -2),
           ),
         ],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-           Column(
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('Total Pembayaran',
-                  style: GoogleFonts.notoSans(fontSize: 14, fontWeight: FontWeight.w400)),
+                  style: GoogleFonts.notoSans(
+                      fontSize: 14, fontWeight: FontWeight.w400)),
               Text('Rp 0',
                   style: GoogleFonts.notoSans(
                       fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w400,
                       color: Colors.red)),
             ],
           ),
           ElevatedButton(
             onPressed: () {},
             style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 12.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 32.0, vertical: 12.0),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8.0),
               ),
             ),
-            child:  Text(
+            child: Text(
               'Order (0)',
               style: GoogleFonts.notoSans(fontSize: 16, color: Colors.grey),
             ),
@@ -202,7 +211,8 @@ class ProductItem extends StatefulWidget {
   final String imageUrl;
   final bool isLowStock;
 
-  const ProductItem({super.key, 
+  const ProductItem({
+    super.key,
     required this.title,
     required this.stock,
     required this.imageUrl,
@@ -219,9 +229,12 @@ class _ProductItemState extends State<ProductItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 328,
-      height: 110,
       margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.all(22),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8),
+      ),
       child: Row(
         children: [
           Checkbox(
@@ -255,9 +268,10 @@ class _ProductItemState extends State<ProductItem> {
                     ? 'Tersisa ${widget.stock}'
                     : 'Stok: ${widget.stock}',
                 style: GoogleFonts.notoSans(
-                  color: widget.isLowStock ? Colors.red : Colors.grey,
-                  fontWeight:
-                      widget.isLowStock ? FontWeight.bold : FontWeight.normal,
+                  color: widget.isLowStock
+                      ? Colors.red
+                      : const Color.fromARGB(255, 0, 0, 0),
+                  fontWeight: FontWeight.w400,
                   fontSize: 12,
                 ),
               ),
@@ -293,7 +307,8 @@ class _ProductItemState extends State<ProductItem> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(text, style: GoogleFonts.notoSans(fontSize: 12, color: Colors.grey)),
+          Text(text,
+              style: GoogleFonts.notoSans(fontSize: 12, color: Colors.grey)),
           const Icon(Icons.arrow_drop_down, size: 16, color: Colors.grey),
         ],
       ),

@@ -28,7 +28,10 @@ class _ListOrderScreenState extends State<ListOrderScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 250, 250, 250),
+
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: const Text('List Order'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),

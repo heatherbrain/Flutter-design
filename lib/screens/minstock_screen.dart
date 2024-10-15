@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class StockScreen extends StatelessWidget {
-  const StockScreen({Key? key}) : super(key: key);
+class MinstockScreen extends StatelessWidget {
+  const MinstockScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
