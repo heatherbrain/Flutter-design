@@ -33,9 +33,7 @@ class _StockadjScreenState extends State<StockadjScreen> {
                 children: [
                   _buildSearchBar(),
                   const SizedBox(height: 20),
-                  Expanded(
-                    child: _buildProductList(),
-                  ),
+                  Expanded(child: _buildProductList()),
                 ],
               ),
             ),
@@ -59,7 +57,7 @@ class _StockadjScreenState extends State<StockadjScreen> {
           filled: true,
           prefixIcon: Icon(Icons.search, color: Colors.grey[400]),
           hintText: 'Cari produk',
-          hintStyle: TextStyle(color: Colors.grey[400], fontWeight: FontWeight.w400),
+          hintStyle: TextStyle(color: Colors.grey[400]),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.0),
             borderSide: BorderSide(color: Colors.grey[200]!),
@@ -75,7 +73,7 @@ class _StockadjScreenState extends State<StockadjScreen> {
           suffixIcon: Container(
             margin: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: Colors.deepOrange,
+              color: Color(0xFFF74904),
               borderRadius: BorderRadius.circular(8),
             ),
             child: const Icon(Icons.filter_list, color: Colors.white, size: 20),
@@ -88,7 +86,7 @@ class _StockadjScreenState extends State<StockadjScreen> {
   Widget _buildProductList() {
     return ListView(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      children: [
+      children: const [
         ProductItem(
           title: 'Pendek 30\'s (New)',
           stock: 645,
@@ -182,258 +180,55 @@ class _ProductItemState extends State<ProductItem> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        showModalBottomSheet(
-          context: context,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-          ),
-          builder: (BuildContext context) {
-            return _buildBottomSheet();
-          },
-        );
-      },
-      child: Container(
-        width: 328,
-        height: 110,
-        padding: const EdgeInsets.all(16.0),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        margin: const EdgeInsets.only(bottom: 12),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Checkbox(
-              value: _isChecked,
-              onChanged: (bool? value) {
-                setState(() {
-                  _isChecked = value!;
-                });
-              },
-              activeColor: const Color(0xFFF74904),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-            ),
-            Container(
-              width: 52,
-              height: 52,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                image: DecorationImage(
-                  image: AssetImage(widget.imageUrl),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.title,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Warna: ${widget.warna}',
-                        style: const TextStyle(color: Colors.grey, fontSize: 12),
-                      ),
-                      Text(
-                        widget.isLowStock
-                            ? 'Tersisa ${widget.stock}'
-                            : 'Stok: ${widget.stock}',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontWeight: widget.isLowStock
-                              ? FontWeight.bold
-                              : FontWeight.normal,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-Widget _buildBottomSheet() {
-  return FractionallySizedBox(
-    heightFactor: 1, 
-    child: Container(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Text(
-                  widget.title,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
-                ),
-              ),
-              IconButton(
-                icon: const Icon(Icons.close),
-                onPressed: () => Navigator.pop(context),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-
-          // Bagian Gambar, Warna, dan Detail
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Image.asset(
-                widget.imageUrl,
-                width: 100,
-                height: 120,
-                fit: BoxFit.cover,
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Rp 46.000 - 50.000',
-                      style: TextStyle(
-                        color: Colors.deepOrange,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text('Warna: ${widget.warna}'),
-                    Text('Stok: ${widget.stock}'),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 24),
-
-          // Bagian Warna
-          Text(
-            'Warna',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 8),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: [
-              _buildColorChip('Army', true, '234'),
-              _buildColorChip('Benhur', false, '124'),
-              _buildColorChip('Charcoal', false, '123'),
-              _buildColorChip('Carolina Blue', false, '304'),
-              _buildColorChip('Cokelat', false, '35'),
-              _buildColorChip('Cream', false, '244'),
-              _buildColorChip('Dusty Pink', false, '94'),
-              _buildColorChip('Fuji', false, '100'),
-              _buildColorChip('Golder Brown', false, '54'),
-            ],
-          ),
-          const SizedBox(height: 24),
-
-          // Bagian Size yang bisa di-scroll
-          Text(
-            'Size',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 8),
-
-          // Hanya area ini yang bisa discroll
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  _buildSizeChip('S'),
-                  _buildSizeChip('M'),
-                  _buildSizeChip('L'),
-                  _buildSizeChip('XL'),
-                  _buildSizeChip('2XL'),
-                  _buildSizeChip('3XL'),
-                ],
-              ),
-            ),
-          ),
-          
-          const SizedBox(height: 16),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.deepOrange,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                padding: EdgeInsets.symmetric(vertical: 16),
-              ),
-              child: const Text(
-                'Kembali',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-            ),
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: const Offset(0, 3),
           ),
         ],
       ),
-    ),
-  );
-}
+      child: Row(
+        children: [
+          Image.asset(
+            widget.imageUrl,
+            width: 60,
+            height: 60,
+            fit: BoxFit.cover,
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.title,
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                Text('Warna: ${widget.warna}'),
+                Text('Stok: ${widget.stock}'),
+              ],
+            ),
+          ),
+          Checkbox(
+  value: _isChecked,
+  onChanged: (bool? value) {
+    setState(() {
+      _isChecked = value ?? false;
+    });
+  },
+  activeColor: Color(0xFFF74904), 
+),
 
-
-Widget _buildColorChip(String label, bool isSelected, String count) {
-  return Container(
-    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-    decoration: BoxDecoration(
-      color: isSelected ? Colors.deepOrange : Colors.grey[200],
-      borderRadius: BorderRadius.circular(16),
-    ),
-    child: Text(
-      '$label ${isSelected ? "($count)" : ""}',
-      style: TextStyle(
-        color: isSelected ? Colors.white : Colors.black,
-        fontSize: 12,
+        ],
       ),
-    ),
-  );
-}
-
-Widget _buildSizeChip(String size) {
-  return Container(
-    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-    decoration: BoxDecoration(
-      color: Colors.grey[200],
-      borderRadius: BorderRadius.circular(8),
-    ),
-    child: Text(
-      '$size (45)',
-      style: TextStyle(fontSize: 14),
-    ),
-  );
-}
+    );
+  }
 }

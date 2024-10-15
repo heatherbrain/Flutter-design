@@ -10,6 +10,6 @@ import 'package:get/get.dart';
 
 void main() {
   runApp(const GetMaterialApp(
-    home: SigninScreen(),
+    home: StockadjScreen(),
   ));
 }
