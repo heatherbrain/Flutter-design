@@ -19,9 +19,12 @@ class _SigninScreenState extends State<SigninScreen> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+      
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        
         children: [
+          
           const Expanded(
             flex: 1,
             child: SizedBox(
@@ -54,30 +57,30 @@ class _SigninScreenState extends State<SigninScreen> {
                           ),
                         ),
                         Text(
-                          'Login to your account.',
+                          'Login to your account',
                           style: GoogleFonts.notoSans(
-                            fontSize: 17,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.grey,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w300,
+                            color: Color(0xFF979AA0),
                           ),
                         ),
                         const SizedBox(height: 35),
-                        const Text(
+                         Text(
                           'Username or email',
-                          style: TextStyle(
+                          style: GoogleFonts.notoSans(
                             fontSize: 12,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w300,
                             color: Color(0xFF979AA0),
                           ),
                         ),
                         const SizedBox(height: 8),
                         _buildEmailInput(),
                         const SizedBox(height: 20),
-                        const Text(
+                         Text(
                           'Password',
-                          style: TextStyle(
+                          style: GoogleFonts.notoSans(
                             fontSize: 12,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w300,
                             color: Color(0xFF979AA0),
                           ),
                         ),
@@ -89,7 +92,6 @@ class _SigninScreenState extends State<SigninScreen> {
                           child: ElevatedButton(
                             onPressed: () {
                               if (_formSigninKey.currentState!.validate()) {
-                                // Jika form valid, navigasi ke halaman baru
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -100,18 +102,18 @@ class _SigninScreenState extends State<SigninScreen> {
                               }
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color.fromARGB(255, 255, 77, 0),
+                              backgroundColor: Color(0xFFF74904),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15),
                               ),
                               padding: const EdgeInsets.symmetric(vertical: 16),
                             ),
-                            child: const Text(
+                            child:  Text(
                               'Login',
-                              style: TextStyle(
+                              style: GoogleFonts.notoSans(
                                 color: Colors.white,
                                 fontSize: 16,
-                                fontWeight: FontWeight.w500,
+                                fontWeight: FontWeight.w300,
                               ),
                             ),
                           ),
@@ -143,7 +145,8 @@ class _SigninScreenState extends State<SigninScreen> {
           decoration: InputDecoration(
             hintText: 'Email',
             hintStyle: GoogleFonts.notoSans(
-              fontWeight: FontWeight.w400,
+              fontSize: 16,
+              fontWeight: FontWeight.w300,
               color: const Color(0xFF979AA0),
             ),
             border: InputBorder.none,
@@ -179,12 +182,12 @@ class _SigninScreenState extends State<SigninScreen> {
         padding: const EdgeInsets.only(left: 12),
         child: TextFormField(
           controller: passwordController,
-          obscureText: true,
-          obscuringCharacter: '*',
+          // obscureText: true,
+          // obscuringCharacter: '*',
           decoration: InputDecoration(
             hintText: 'Password',
             hintStyle: GoogleFonts.notoSans(
-              fontWeight: FontWeight.w400,
+              fontWeight: FontWeight.w300,
               color: const Color(0xFF979AA0),
             ),
             border: InputBorder.none,
