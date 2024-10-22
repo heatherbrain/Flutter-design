@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
 
 class CustomScaffold extends StatelessWidget {
   final Widget child;
@@ -15,13 +16,14 @@ class CustomScaffold extends StatelessWidget {
       ),
       body: Stack(
         children: [
+          // Background gradient
           Positioned.fill(
             child: Container(
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Color(0xFFF74904), 
-                    Color(0xFFFB923C), 
+                    Color(0xFFF74904),
+                    Color(0xFFFB923C),
                   ],
                   begin: Alignment.topLeft,
                   end: Alignment.centerRight,
@@ -29,15 +31,79 @@ class CustomScaffold extends StatelessWidget {
               ),
             ),
           ),
+          Positioned.fill(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Transform.rotate(
+                        angle: math.pi / 4,
+                        child: Container(
+                          width: 392,
+                          height: 392,
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(76),
+                          ),
+                        ),
+                      ),
+                      Transform.rotate(
+                        angle: math.pi / 4, // 45 degree rotation
+                        child: Container(
+                          width: 292,
+                          height: 292,
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.3),
+                            borderRadius: BorderRadius.circular(76),
+                          ),
+                        ),
+                      ),
+                      Transform.rotate(
+                        angle: math.pi / 4, // 45 degree rotation
+                        child: Container(
+                          width: 182,
+                          height: 182,
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.4),
+                            borderRadius: BorderRadius.circular(56),
+                          ),
+                        ),
+                      ),
+                      // Square for logo with shadow
+                      Container(
+                        width: 96,
+                        height: 96,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.5),
+                          borderRadius: BorderRadius.circular(56),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              spreadRadius: 2,
+                              blurRadius: 10,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
           Positioned(
-            top: 10,  
-            left: 0,
             right: 0,
+            left: 0,
             child: Center(
               child: Image.asset(
-                'assets/images/brandlogos.png', 
-                width: 128,  
-                height: 128, 
+                'assets/images/brandlogos.png',
+                width: 118,
+                height: 118,
               ),
             ),
           ),
