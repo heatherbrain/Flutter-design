@@ -31,22 +31,24 @@ class CustomScaffold extends StatelessWidget {
               ),
             ),
           ),
-          Positioned.fill(
+          Positioned(
+            left: 100,
+            top: 50,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Align(
-                  alignment: Alignment.topRight,
+                  alignment: Alignment.center,
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
                       Transform.rotate(
                         angle: math.pi / 4,
                         child: Container(
-                          width: 392,
-                          height: 392,
+                          width: 368,
+                          height: 368,
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.2),
+                            color: Colors.white.withOpacity(0.1),
                             borderRadius: BorderRadius.circular(76),
                           ),
                         ),
@@ -57,8 +59,8 @@ class CustomScaffold extends StatelessWidget {
                           width: 292,
                           height: 292,
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.3),
-                            borderRadius: BorderRadius.circular(76),
+                            color: Colors.white.withOpacity(0.4),
+                            borderRadius: BorderRadius.circular(66),
                           ),
                         ),
                       ),
@@ -97,6 +99,7 @@ class CustomScaffold extends StatelessWidget {
             ),
           ),
           Positioned(
+            top: 10,
             right: 0,
             left: 0,
             child: Center(
