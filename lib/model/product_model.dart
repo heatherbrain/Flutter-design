@@ -10,4 +10,6 @@ class Product {
     required this.color,
     required this.imageUrl,
   });
+
+  
 }

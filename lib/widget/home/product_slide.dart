@@ -1,120 +1,88 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:from_design/model/pop_product_model.dart';
 
-class PopularProducts extends StatelessWidget {
-  final List<Map<String, String>> products = [
-    {
-      'image': 'assets/images/produk1.png',
-      'name': 'Pendek 30\'s (New)',
-      'variant': 'Hitam XL',
-      'stock': '42pcs',
-    },
-    {
-      'image': 'assets/images/produk2.png',
-      'name': 'Pendek 30\'s (New)',
-      'variant': 'Hitam L',
-      'stock': '30pcs',
-    },
-    {
-      'image': 'assets/images/produk3.png',
-      'name': 'Pendek 30\'s (New)',
-      'variant': 'Maroon M',
-      'stock': '21pcs',
-    },
-  ];
+class ProductSlide extends StatelessWidget {
+  final List<PopProduct> products;
 
-   PopularProducts({super.key});
+  const ProductSlide({super.key, required this.products});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Popular Products',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+    return SizedBox(
+      height: 250, 
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        itemCount: products.length ~/ 3, 
+        separatorBuilder: (context, index) => const SizedBox(width: 12),
+        itemBuilder: (context, index) {
+          int startIndex = index * 3;
+          int endIndex = (startIndex + 3 < products.length) ? startIndex + 3 : products.length;
+          List<PopProduct> batch = products.sublist(startIndex, endIndex);
+
+          return SizedBox(
+            width: 250, 
+            child: Column(
+              children: batch
+                  .map(
+                    (product) => Expanded(
+                      child: ProductItem(product: product),
+                    ),
+                  )
+                  .toList(),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class ProductItem extends StatelessWidget {
+  final PopProduct product;
+
+  const ProductItem({super.key, required this.product});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 0,
+      color: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            Image.asset(
+              product.imageUrl,
+              width: 60,
+              height: 60,
+              fit: BoxFit.cover,
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    product.name,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    'Rp ${product.price.toStringAsFixed(2)}',
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
               ),
-              TextButton(
-                onPressed: () {},
-                child: Row(
-                  children: [
-                    Text(
-                      'View all',
-                      style: GoogleFonts.notoSans(
-                        fontSize: 12,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    const SizedBox(width: 4),
-                    const Icon(Icons.arrow_forward, size: 16, color: Colors.grey),
-                  ],
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
-        const SizedBox(height: 16),
-        SizedBox(
-          height: 300,
-          child: ListView.builder(
-            itemCount: products.length,
-            itemBuilder: (context, index) {
-              final product = products[index];
-              return Container(
-                margin: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: SizedBox(
-                        width: 80.0,
-                        height: 80.0,
-                        child: Image.asset(
-                          product['image']!,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            product['name']!,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                            ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          Text(
-                            product['variant']!,
-                            style: const TextStyle(
-                                fontSize: 12, color: Colors.grey),
-                          ),
-                          Text(
-                            product['stock']!,
-                            style: const TextStyle(
-                                fontSize: 12, color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-        ),
-      ],
+      ),
     );
   }
 }

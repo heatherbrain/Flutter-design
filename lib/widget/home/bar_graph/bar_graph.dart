@@ -2,53 +2,60 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:from_design/widget/home/bar_graph/bar_data.dart';
 
-class BarGraph extends StatelessWidget {
-  final List<double> weeklySummary;
+import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/material.dart';
+import 'package:from_design/widget/home/bar_graph/bar_data.dart';
 
-  const BarGraph({super.key, required this.weeklySummary});
+class BarGraph extends StatelessWidget {
+  final List<double> profitData;
+  final List<double> omsetData;
+
+  const BarGraph({
+    Key? key,
+    required this.profitData,
+    required this.omsetData,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    BarData barData = BarData(
-      sunAmount: weeklySummary[0],
-      monAmount: weeklySummary[1],
-      tueAmount: weeklySummary[2],
-      wedAmount: weeklySummary[3],
-      thurAmount: weeklySummary[4],
-      friAmount: weeklySummary[5],
-      satAmount: weeklySummary[6],
-    );
+    List<BarChartGroupData> barGroups = List.generate(7, (index) {
+      double profit = profitData[index];
+      double omset = omsetData[index];
+
+      return BarChartGroupData(
+        x: index,
+        barsSpace: -9,
+        barRods: [
+          BarChartRodData(
+            toY: omset,
+            color: Colors.grey[300],
+            width: 9,
+            borderRadius: BorderRadius.circular(7),
+              backDrawRodData: BackgroundBarChartRodData(
+                show: true,
+                toY: 120,
+                color: const Color.fromARGB(255, 244, 244, 244),
+              )
+            ),
+          BarChartRodData(
+              toY: profit,
+              color: const Color(0xFFF74904),
+              width: 9,
+              borderRadius: BorderRadius.circular(7),
+            ),
+        ],
+      );
+    });
 
     return BarChart(
       BarChartData(
-        maxY: 100,
+        maxY: 130,
         minY: 0,
-        titlesData: const FlTitlesData(
-          topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-          rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-          bottomTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-          leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-        ),
+        titlesData: FlTitlesData(show: false),
         borderData: FlBorderData(show: false),
-        barGroups: barData.barData
-            .map(
-              (data) => BarChartGroupData(
-                x: data.x,
-                barRods: [
-                  BarChartRodData(
-                      toY: data.y,
-                      color: Colors.grey[800], // Orange color
-                      width: 18, // Thin bar width
-                      borderRadius: BorderRadius.circular(40),
-                      backDrawRodData: BackgroundBarChartRodData(
-                        show: true,
-                        toY: 100,
-                        color: const Color.fromARGB(255, 126, 126, 126),
-                      )),
-                ],
-              ),
-            )
-            .toList(),
+        gridData: FlGridData(show: false),
+        barGroups: barGroups,
+        alignment: BarChartAlignment.center,
       ),
     );
   }

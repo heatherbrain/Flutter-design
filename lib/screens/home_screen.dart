@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:from_design/screens/minstock_screen.dart';
+import 'package:from_design/screens/cobacoba.dart';
 import 'package:from_design/screens/stokadj_screen.dart';
 import 'package:from_design/widget/home/marketplace.dart';
 import 'package:from_design/widget/home/notification.dart';
 import 'package:from_design/widget/home/product_slide.dart';
+import 'package:from_design/model/pop_product_model.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -33,8 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-            backgroundColor: Color.fromARGB(255, 250, 250, 250),
-
+      backgroundColor: Color.fromARGB(255, 255, 255, 255),
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 245, 74, 0),
       ),
@@ -57,11 +58,82 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 20),
               Marketplace(),
               const NotificationList(),
-              PopularProducts(),
+              _buildProductSlider(),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildProductSlider() {
+    return SizedBox(
+      height: 250,
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Popular Products',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+                ),
+                TextButton(
+                  onPressed: () {},
+                  child: Row(
+                    children: [
+                      Text(
+                        'View all',
+                        style: GoogleFonts.notoSans(
+                          fontSize: 12,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      const SizedBox(width: 4),
+                      const Icon(Icons.arrow_forward,
+                          size: 16, color: Colors.grey),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 10),
+          Expanded(
+            child: PageView(
+              children: [
+                _buildProduct(),
+                _buildProduct(),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildProduct() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: 250,
+          child: PageView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: (PopProduct.products.length / 3).ceil(),
+            itemBuilder: (context, index) {
+              int startIndex = index * 3;
+              int endIndex = (startIndex + 3 < PopProduct.products.length)
+                  ? startIndex + 3
+                  : PopProduct.products.length;
+              return ProductSlide(
+                  products: PopProduct.products.sublist(startIndex, endIndex));
+            },
+          ),
+        ),
+      ],
     );
   }
 
@@ -148,7 +220,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ),
                               Text(
-                                '800RB',
+                                '3.5JT',
                                 style: GoogleFonts.notoSans(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w700,
@@ -175,7 +247,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ),
                               Text(
-                                '800RB',
+                                '2.4JT',
                                 style: GoogleFonts.notoSans(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w700,
@@ -189,6 +261,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
                 const Spacer(),
+                SizedBox(
+                  width: 150, 
+                  height: 115, 
+                  child: Cobacoba(), 
+                ),
               ],
             ),
             const SizedBox(height: 10),
@@ -311,6 +388,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
                 const Spacer(),
+                 SizedBox(
+                  width: 150, 
+                  height: 115, 
+                  child: Cobacoba(), 
+                ),
               ],
             ),
             const SizedBox(height: 10),

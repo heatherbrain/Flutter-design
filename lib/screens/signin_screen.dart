@@ -17,49 +17,44 @@ class _SigninScreenState extends State<SigninScreen> {
   final passwordController = TextEditingController();
   final AuthService _authService = AuthService();
 
+  final String validUsername = 'owner@jdmstore.id';
+  final String validPassword = 'password';
+
+  final RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@jdmstore\.id$');
+
+
   Future<void> _handleLogin() async {
     if (_formSigninKey.currentState!.validate()) {
-      final response = await _authService.login(
-        emailController.text,
-        passwordController.text,
-      );
+      if (emailController.text == validUsername &&
+          passwordController.text == validPassword) {
+        final response = await _authService.login(
+          emailController.text,
+          passwordController.text,
+        );
 
-          if (response['status']) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const NavigationMenu()),
-            );
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(response['message'] ?? 'Login failed'),
-                backgroundColor: const Color.fromARGB(255, 255, 17, 0),
-              ),
-            );
-          }
+        if (response['status']) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const NavigationMenu()),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(response['message'] ?? 'Login failed'),
+              backgroundColor: const Color.fromARGB(255, 255, 17, 0),
+            ),
+          );
         }
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Invalid username or password'),
+            backgroundColor: const Color.fromARGB(255, 255, 17, 0),
+          ),
+        );
       }
-
-    //   if (response['status']) {
-    //     Navigator.pushReplacement(
-    //       context,
-    //       MaterialPageRoute(
-    //         builder: (context) => Scaffold(
-    //           appBar: AppBar(title: const Text('Home')),
-    //           body: const Center(child: Text('Login Successful')),
-    //         ),
-    //       ),
-    //     );
-    //   } else {
-    //     ScaffoldMessenger.of(context).showSnackBar(
-    //       SnackBar(
-    //         content: Text(response['message'] ?? 'Login failed'),
-    //         backgroundColor: const Color.fromARGB(255, 255, 17, 0),
-    //       ),
-    //     );
-    //   }
-    // }
-  // }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -185,6 +180,8 @@ class _SigninScreenState extends State<SigninScreen> {
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Please enter your email';
+            } else if (!emailRegex.hasMatch(value)) {
+              return 'Please enter a valid @jdmstore.id email';
             }
             return null;
           },
